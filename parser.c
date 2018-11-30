@@ -4,66 +4,75 @@
 #include "include/parser.h"
 
 //FONCTION PARSER
-
-/*
- * ALGO PARSER
- * 
- * Pour chaque instance
- * 	Récupérer nbObject
- * 	Récupérer nbDimension
- * 	Récupérer matrice nbObject x nbDimensions
- * 	->Obtention d'une matrice "à l'envers" par rapport au fichier.txt, une ligne comporte
- * 	->la valeur(matrice[0]) puis le poids(matrice[1+]
- * 	Récupérer limit
- * 	init(instance)
- * 	Pour chaque object
- * 		Init(Object)
- * 		Ajouter object à instance
- * */
  
 DataFile * Parser(FILE* file_to_parse)
 {
 	int data_to_ignore;
 	char char_to_ignore;
 	
+	FILE * f = fopen("output.txt", "w+");
+	
+	//Initialisation de la datafile (nb d'instance totales)
 	int TotalNbInstance;
 	fscanf(file_to_parse, "%i", &TotalNbInstance);
 	printf("TotalNbInstance = %i\n", TotalNbInstance);
 	DataFile * datafile = DataFile_new(TotalNbInstance);
 	
-	int nbObjectTotal;
-	int nbDimension;
-	fscanf(file_to_parse, "%i", &nbObjectTotal);
-	fscanf(file_to_parse, "%i", &nbDimension);
-	printf("nbObjectTotal = %i\n", nbObjectTotal);
-	printf("nbDimension = %i\n", nbDimension);
-	Instance * instance = Instance_new(nbObjectTotal, nbDimension);
-	DataFile_addInstance(datafile, instance);
-	
-	//Ignorer les données à ignorer
-		//Les valeur d'une solution et une autre solution
-	fscanf(file_to_parse, "%i", &data_to_ignore);
-	fscanf(file_to_parse, "%i", &data_to_ignore);
-		//Retour à la ligne
-	char_to_ignore = fgetc(file_to_parse);
-		//Valeur des variables xj d'une solution réalisable
-	do
+	//On itère sur chaque instance tout au long du fichier
+	for (int instance_count = 0; instance_count < datafile->TotalNbInstance; instance_count++)
 	{
+		//Initialisation du timer
+		clock_t debut;
+		debut = clock();
+		
+		//Initialisation de l'instance
+		int nbObjectTotal;
+		int nbDimension;
+		fscanf(file_to_parse, "%i", &nbObjectTotal);
+		fscanf(file_to_parse, "%i", &nbDimension);
+		fprintf(f, "Numéro de l'instance = %i\n", instance_count);
+		fprintf(f, "Nombre d'objet = %i\n", nbObjectTotal);
+		fprintf(f, "Nombre de dimension = %i\n", nbDimension);
+		Instance * instance = Instance_new(nbObjectTotal, nbDimension);
+		DataFile_addInstance(datafile, instance);
+		
+		//Ignorer les données à ignorer
+			//Les valeur d'une solution et une autre solution
+		fscanf(file_to_parse, "%i", &data_to_ignore);
+		fscanf(file_to_parse, "%i", &data_to_ignore);
+			//Retour à la ligne
 		char_to_ignore = fgetc(file_to_parse);
-	} while (char_to_ignore != '\n');
-	//Fin des valeurs à ignorer
-	
-	//Remplissage des objets contenus dans l'instance
-	int value;
-	for (int i = 0; i < nbDimension + 1; i++)
-	{
-		for (int j = 0; j < nbObjectTotal; j++)
+			//Valeur des variables xj d'une solution réalisable
+		do
+		{
+			char_to_ignore = fgetc(file_to_parse);
+		} while (char_to_ignore != '\n');
+		//Fin des valeurs à ignorer
+		
+		//Remplissage des objets contenus dans l'instance
+		int value;
+		for (int i = 0; i < nbDimension + 1; i++)
+		{
+			for (int j = 0; j < nbObjectTotal; j++)
+			{
+				fscanf(file_to_parse, "%i", &value);
+				instance->object[j]->tab[i] = value;
+			}
+		}
+		//Fin du remplissage des objets
+		
+		//Récupération des limites
+		for (int i = 0; i < instance->nbDimension; i++)
 		{
 			fscanf(file_to_parse, "%i", &value);
-			instance->object[j]->tab[i] = value;
+			instance->limit[i] = value;
 		}
+		//Fin de la récupération des limites
+		
+		double time_elapsed = (((double) clock() - debut) / CLOCKS_PER_SEC);
+		fprintf(f, "Temps écoulé pour l'instance %i = %f\n\n", instance_count, time_elapsed);
 	}
-	
+
 	return datafile;
 }
 
