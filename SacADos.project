@@ -2,12 +2,9 @@
 <CodeLite_Project Name="SacADos" Version="10.0.0" InternalType="Console">
   <Description/>
   <Dependencies/>
-  <VirtualDirectory Name="src">
-    <File Name="main.c"/>
-    <File Name="parser.c"/>
-  </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/parser.h"/>
+    <File Name="include/codage.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
@@ -99,4 +96,11 @@
       </Completion>
     </Configuration>
   </Settings>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
+  <VirtualDirectory Name="source">
+    <File Name="main.c"/>
+    <File Name="parser.c"/>
+    <File Name="source/codage.c"/>
+  </VirtualDirectory>
 </CodeLite_Project>

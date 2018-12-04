@@ -5,7 +5,7 @@
 ## Debug
 ProjectName            :=SacADos
 ConfigurationName      :=Debug
-WorkspacePath          :=/home/olivier/Bureau/Polytech/Unix/TP4
+WorkspacePath          :=/home/olivier/Bureau/Polytech/ProjetC
 ProjectPath            :=/home/olivier/Bureau/Polytech/ProjetC_2/SacADos
 IntermediateDirectory  :=./Debug
 OutDir                 := $(IntermediateDirectory)
@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Olivier
-Date                   :=30/11/18
+Date                   :=04/12/18
 CodeLitePath           :=/home/olivier/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/parser.c$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/parser.c$(ObjectSuffix) $(IntermediateDirectory)/source_codage.c$(ObjectSuffix) 
 
 
 
@@ -106,6 +106,14 @@ $(IntermediateDirectory)/parser.c$(DependSuffix): parser.c
 
 $(IntermediateDirectory)/parser.c$(PreprocessSuffix): parser.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/parser.c$(PreprocessSuffix) parser.c
+
+$(IntermediateDirectory)/source_codage.c$(ObjectSuffix): source/codage.c $(IntermediateDirectory)/source_codage.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "/home/olivier/Bureau/Polytech/ProjetC_2/SacADos/source/codage.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/source_codage.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/source_codage.c$(DependSuffix): source/codage.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/source_codage.c$(ObjectSuffix) -MF$(IntermediateDirectory)/source_codage.c$(DependSuffix) -MM source/codage.c
+
+$(IntermediateDirectory)/source_codage.c$(PreprocessSuffix): source/codage.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/source_codage.c$(PreprocessSuffix) source/codage.c
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

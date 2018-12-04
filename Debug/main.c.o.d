@@ -1,3 +1,5 @@
-Debug/main.c.o: main.c include/parser.h
+Debug/main.c.o: main.c include/parser.h include/codage.h
 
 include/parser.h:
+
+include/codage.h:
