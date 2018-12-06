@@ -5,7 +5,7 @@
 ## Debug
 ProjectName            :=SacADos
 ConfigurationName      :=Debug
-WorkspacePath          :=/home/olivier/Bureau/Polytech/ProjetC
+WorkspacePath          :=/home/olivier/Bureau/Polytech/ProjetC_2/SacADos
 ProjectPath            :=/home/olivier/Bureau/Polytech/ProjetC_2/SacADos
 IntermediateDirectory  :=./Debug
 OutDir                 := $(IntermediateDirectory)
@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Olivier
-Date                   :=04/12/18
+Date                   :=06/12/18
 CodeLitePath           :=/home/olivier/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC

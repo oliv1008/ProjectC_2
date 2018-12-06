@@ -8,6 +8,7 @@ int main(int argc, char **argv)
 {
 	char c;
 	FILE * f;
+	FILE * solutions_output;
 	DataFile * datafile;
 	srand( time(NULL));
 	
@@ -28,15 +29,44 @@ int main(int argc, char **argv)
 		}
 	}
 	
-	Randomize_solution(100, 5);
-	/*Pour chaque instance : 
-	 * 		Créer aléatoirement une solution
-	 * 		Remplir cette solution avec les valeurs de l'instance
-	 * 		Evaluer la solution
-	 * 		Tester la faisabilité
-	 * 		Ecrire la solution dans un fichier
+	solutions_output = fopen("solutions_output.txt", "w+");
+	SolutionArray * solutions = SolutionArray_new(datafile->TotalNbInstance, \
+												datafile->instance[0]->nbObjectTotal, \
+												datafile->instance[0]->nbDimension);
+	for (int i = 0; i < datafile->TotalNbInstance; i++)
+	{
+		Randomize_solution(solutions->solutions[i]);
+		Load_Solution(solutions->solutions[i], datafile->instance[i]);
+		fprintf(solutions_output, "Solution pour l'instance : %i \n\n", i);
+		for (int j = 0; j < solutions->solutions[i]->nbObject; j++)
+		{
+			fprintf(solutions_output, "%i ", solutions->solutions[i]->objectBoolean[j]);
+		}
+		fprintf(solutions_output, "\nValeur totale : %i\n", solutions->solutions[i]->value);
+		for (int j = 0; j < solutions->solutions[i]->nbDimension; j++)
+		{
+			fprintf(solutions_output, "Poids total pour la dimension %i : %i\n", j, \
+																			solutions->solutions[i]->weightDimension[j]);
+		}
+		if (Is_Solution_Feasible(solutions->solutions[i], datafile->instance[i]))
+		{
+			fprintf(solutions_output, "La solution est réalisable \n");
+		}
+		else
+		{
+			fprintf(solutions_output, "La solution n'est pas réalisable \n");
+		}
+		fprintf(solutions_output, "\n\n\n");
+		
+	}
+	
+	/*Pour le codage indirect : même principe mais au lieu de génèrer des 0 et 1 aléatoirement
+	 * on génère des priorités (forcèment pas 2 fois la même priorité)
+	 * On remplit ensuite les objets en fonctions de leur priorité
+	 * */
 	
 	//Solution temp pour empêcher le terminal de se fermer
+	DataFile_delete(datafile);
 	scanf("%c", &c);
 	return 0;
 }

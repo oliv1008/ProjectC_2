@@ -56,7 +56,14 @@ DataFile * Parser(FILE* file_to_parse)
 			for (int j = 0; j < nbObjectTotal; j++)
 			{
 				fscanf(file_to_parse, "%i", &value);
-				instance->object[j]->tab[i] = value;
+				if (i == 0)
+				{
+					instance->object[j]->value = value;
+				}
+				else
+				{
+					instance->object[j]->weight[i - 1] = value;
+				}
 			}
 		}
 		//Fin du remplissage des objets
@@ -73,6 +80,7 @@ DataFile * Parser(FILE* file_to_parse)
 		fprintf(f, "Temps écoulé pour l'instance %i = %f\n\n", instance_count, time_elapsed);
 	}
 
+	fclose(f);
 	return datafile;
 }
 
@@ -82,8 +90,8 @@ DataFile * Parser(FILE* file_to_parse)
 int Object_init(Object* object, int nbDimension)
 {
 	//Dimension + 1 car une colone pour la valeur et nbDimension pour le nombre de dimension
-	object->tab = (int*) malloc(sizeof(int) * nbDimension + 1);
-	if (object->tab)
+	object->weight = (int*) malloc(sizeof(int) * nbDimension);
+	if (object->weight)
 	{
 		return 0;
 	}
@@ -107,7 +115,7 @@ Object * Object_new(int nbDimension)
 
 void Object_finalize(Object * object)
 {
-	free(object->tab);
+	free(object->weight);
 }
 
 void Object_delete(Object * object)

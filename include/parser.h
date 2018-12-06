@@ -1,8 +1,12 @@
+#ifndef PARSER_H
+#define PARSER_H
+
+#include "stdio.h"
+
 typedef struct __Object
 {
-	//tab[0] correspond à la valeur de l'objet
-	//tab[1+] correspond au poids de ses différentes dimensions
-	int * tab;
+	int value;
+	int * weight;
 }Object;
 
 typedef struct __Instance
@@ -45,3 +49,5 @@ DataFile * DataFile_new(int TotalNbInstance);
 void DataFile_finalize(DataFile * datafile);
 void DataFile_delete(DataFile * datafile);
 int DataFile_addInstance(DataFile * datafile, Instance * instance);
+
+#endif
