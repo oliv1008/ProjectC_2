@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Olivier
-Date                   :=06/12/18
+Date                   :=11/12/18
 CodeLitePath           :=/home/olivier/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/parser.c$(ObjectSuffix) $(IntermediateDirectory)/source_codage.c$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/parser.c$(ObjectSuffix) $(IntermediateDirectory)/source_codage.c$(ObjectSuffix) $(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix) 
 
 
 
@@ -114,6 +114,14 @@ $(IntermediateDirectory)/source_codage.c$(DependSuffix): source/codage.c
 
 $(IntermediateDirectory)/source_codage.c$(PreprocessSuffix): source/codage.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/source_codage.c$(PreprocessSuffix) source/codage.c
+
+$(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix): source/heuristique.c $(IntermediateDirectory)/source_heuristique.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "/home/olivier/Bureau/Polytech/ProjetC_2/SacADos/source/heuristique.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/source_heuristique.c$(DependSuffix): source/heuristique.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix) -MF$(IntermediateDirectory)/source_heuristique.c$(DependSuffix) -MM source/heuristique.c
+
+$(IntermediateDirectory)/source_heuristique.c$(PreprocessSuffix): source/heuristique.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/source_heuristique.c$(PreprocessSuffix) source/heuristique.c
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

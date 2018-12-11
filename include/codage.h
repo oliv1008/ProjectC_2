@@ -6,7 +6,7 @@
 typedef struct __Solution
 {
 	int nbObject;
-	int * objectBoolean;
+	int * objectTab;
 	int value;
 	int nbDimension;
 	int * weightDimension;
@@ -19,8 +19,10 @@ typedef struct __SolutionArray
 	Solution ** solutions;
 } SolutionArray;
 
-void Randomize_solution(Solution * solution);
-void Load_Solution(Solution * solution, Instance * instance);
+void Randomize_solution_direct(Solution * solution);
+void Randomize_solution_indirect(Solution * solution);
+void Load_Solution_direct(Solution * solution, Instance * instance);
+void Load_Solution_indirect(Solution * solution, Instance * instance);
 int Is_Solution_Feasible(Solution* solution, Instance * instance);
 
 //FONCTIONS D'INITIALISATION DE SOLUTION

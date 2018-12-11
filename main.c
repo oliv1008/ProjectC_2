@@ -3,18 +3,18 @@
 #include "time.h"
 #include "include/parser.h"
 #include "include/codage.h"
+#include "include/heuristique.h"
 
 int main(int argc, char **argv)
 {
-	char c;
 	FILE * f;
 	FILE * solutions_output;
 	DataFile * datafile;
 	srand( time(NULL));
 	
-	if (argc != 2)
+	if (argc != 3)
 	{
-		printf("Erreur, veuillez spécifier un chemin vers un fichier .txt\n");
+		printf("Erreur, utilisation : [Chemin vers un fichier] [0 (Codage direct) || 1 (Codage indirect)]\n");
 	}
 	else
 	{
@@ -23,51 +23,102 @@ int main(int argc, char **argv)
 		{
 			printf("Chemin d'accès incorrect, veuillez spécifier un chemin d'accès correct\n");
 		}
+		else if (atoi(argv[2]) < 0 || atoi(argv[2]) > 1)
+		{
+			printf("Type de codage incorrect, veuillez choisir entre 0 (codage direct) ou 1 (codage indirect)");
+		}
 		else
 		{
 			datafile = Parser(f);
 		}
 	}
 	
-	solutions_output = fopen("solutions_output.txt", "w+");
-	SolutionArray * solutions = SolutionArray_new(datafile->TotalNbInstance, \
-												datafile->instance[0]->nbObjectTotal, \
-												datafile->instance[0]->nbDimension);
-	for (int i = 0; i < datafile->TotalNbInstance; i++)
+	//Codage direct
+	if(atoi(argv[2]) == 0)
 	{
-		Randomize_solution(solutions->solutions[i]);
-		Load_Solution(solutions->solutions[i], datafile->instance[i]);
-		fprintf(solutions_output, "Solution pour l'instance : %i \n\n", i);
-		for (int j = 0; j < solutions->solutions[i]->nbObject; j++)
+		solutions_output = fopen("solutions_output.txt", "w+");
+		SolutionArray * solutions_direct = SolutionArray_new(datafile->TotalNbInstance, \
+													datafile->instance[0]->nbObjectTotal, \
+													datafile->instance[0]->nbDimension);
+		for (int i = 0; i < datafile->TotalNbInstance; i++)
 		{
-			fprintf(solutions_output, "%i ", solutions->solutions[i]->objectBoolean[j]);
+			Randomize_solution_direct(solutions_direct->solutions[i]);
+			Load_Solution_direct(solutions_direct->solutions[i], datafile->instance[i]);
+			fprintf(solutions_output, "Solution pour l'instance : %i \n\n", i);
+			for (int j = 0; j < solutions_direct->solutions[i]->nbObject; j++)
+			{
+				fprintf(solutions_output, "%i ", solutions_direct->solutions[i]->objectTab[j]);
+			}
+			fprintf(solutions_output, "\nValeur totale : %i\n", solutions_direct->solutions[i]->value);
+			for (int j = 0; j < solutions_direct->solutions[i]->nbDimension; j++)
+			{
+				fprintf(solutions_output, "Poids total pour la dimension %i : %i\n", j, \
+											solutions_direct->solutions[i]->weightDimension[j]);
+			}
+			if (Is_Solution_Feasible(solutions_direct->solutions[i], datafile->instance[i]))
+			{
+				fprintf(solutions_output, "La solution est réalisable \n");
+			}
+			else
+			{
+				fprintf(solutions_output, "La solution n'est pas réalisable \n");
+			}
+			fprintf(solutions_output, "\n\n\n");
 		}
-		fprintf(solutions_output, "\nValeur totale : %i\n", solutions->solutions[i]->value);
-		for (int j = 0; j < solutions->solutions[i]->nbDimension; j++)
-		{
-			fprintf(solutions_output, "Poids total pour la dimension %i : %i\n", j, \
-																			solutions->solutions[i]->weightDimension[j]);
-		}
-		if (Is_Solution_Feasible(solutions->solutions[i], datafile->instance[i]))
-		{
-			fprintf(solutions_output, "La solution est réalisable \n");
-		}
-		else
-		{
-			fprintf(solutions_output, "La solution n'est pas réalisable \n");
-		}
-		fprintf(solutions_output, "\n\n\n");
 		
+		SolutionArray_delete(solutions_direct);
+		/*
+		fprintf(solutions_output, "test\n");
+		Object ** tabObject = Ordonnancement_aleatoire(datafile->instance[0]);
+		for (int i = 0; i < datafile->instance[0]->nbObjectTotal; i++)
+		{
+			fprintf(solutions_output, "%i ", datafile->instance[0]->object[i]->value);
+		}
+		fprintf(solutions_output, "\n");
+		for (int i = 0; i < datafile->instance[0]->nbObjectTotal; i++)
+		{
+			fprintf(solutions_output, "%i ", tabObject[i]->value);
+		}
+		free(tabObject);
+		*/
 	}
 	
-	/*Pour le codage indirect : même principe mais au lieu de génèrer des 0 et 1 aléatoirement
-	 * on génère des priorités (forcèment pas 2 fois la même priorité)
-	 * On remplit ensuite les objets en fonctions de leur priorité
-	 * */
+	else if (atoi(argv[2]) == 1)
+	{
+		solutions_output = fopen("solutions_output.txt", "w+");
+		SolutionArray * solutions_indirect = SolutionArray_new(datafile->TotalNbInstance, \
+													datafile->instance[0]->nbObjectTotal, \
+													datafile->instance[0]->nbDimension);
+		for (int i = 0; i < datafile->TotalNbInstance; i++)
+		{
+			Randomize_solution_indirect(solutions_indirect->solutions[i]);
+			Load_Solution_indirect(solutions_indirect->solutions[i], datafile->instance[i]);
+			fprintf(solutions_output, "Solution pour l'instance : %i \n\n", i);
+			for (int j = 0; j < solutions_indirect->solutions[i]->nbObject; j++)
+			{
+				fprintf(solutions_output, "%i ", solutions_indirect->solutions[i]->objectTab[j]);
+			}
+			fprintf(solutions_output, "\nValeur totale : %i\n", solutions_indirect->solutions[i]->value);
+			for (int j = 0; j < solutions_indirect->solutions[i]->nbDimension; j++)
+			{
+				fprintf(solutions_output, "Poids total pour la dimension %i : %i\n", j, \
+											solutions_indirect->solutions[i]->weightDimension[j]);
+			}
+			if (Is_Solution_Feasible(solutions_indirect->solutions[i], datafile->instance[i]))
+			{
+				fprintf(solutions_output, "La solution est réalisable \n");
+			}
+			else
+			{
+				fprintf(solutions_output, "La solution n'est pas réalisable \n");
+			}
+			fprintf(solutions_output, "\n\n\n");
+		}
+		
+		SolutionArray_delete(solutions_indirect);
+	}
 	
-	//Solution temp pour empêcher le terminal de se fermer
 	DataFile_delete(datafile);
-	scanf("%c", &c);
 	return 0;
 }
 

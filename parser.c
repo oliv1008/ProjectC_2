@@ -4,6 +4,7 @@
 #include "include/parser.h"
 
 //FONCTION PARSER
+//A FAIRE : instance->nbObjectCurrent ne sert actuellement à rien, à corriger
  
 DataFile * Parser(FILE* file_to_parse)
 {

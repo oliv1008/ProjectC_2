@@ -4,21 +4,49 @@
 
 //FONCTIONS SOLUTIONS
 
-void Randomize_solution(Solution * solution)
+void Randomize_solution_direct(Solution * solution)
 {	
 	for (int i = 0; i < solution->nbObject; i++)
 	{
-		solution->objectBoolean[i] = rand() % 2;
+		solution->objectTab[i] = rand() % 2;
 	}
+}
+
+void Randomize_solution_indirect(Solution * solution)
+{
+	int * tableau = (int *) malloc (sizeof(int) * solution->nbObject);
+	
+	for (int i = 0; i < solution->nbObject; i++)
+	{
+		tableau[i] = i;
+	}
+	
+	int alea;
+	int taille = solution->nbObject;
+	
+	for (int i = 0; i < solution->nbObject; i++)
+	{
+		alea = rand() % taille;
+		solution->objectTab[i] = tableau[alea];
+		--taille;
+		
+		for(int j = alea; j < taille; j++)
+		{
+			tableau[j] = tableau[j + 1];
+		}
+	}
+	
+	free(tableau);
 }
 
 //Remplit les valeurs "value" et "weightDimension" en fonction de la valeur
 //et du poids des dimensions des objets dans le sac
-void Load_Solution(Solution * solution, Instance * instance)
+//POUR CODAGE DIRECT
+void Load_Solution_direct(Solution * solution, Instance * instance)
 {
 	for (int i = 0; i < solution->nbObject; i++)
 	{
-		if (solution->objectBoolean[i] == 1)
+		if (solution->objectTab[i] == 1)
 		{
 			solution->value += instance->object[i]->value;
 			for (int j = 0; j < instance->nbDimension; j++)
@@ -26,6 +54,36 @@ void Load_Solution(Solution * solution, Instance * instance)
 				solution->weightDimension[j] += instance->object[i]->weight[j];
 			}
 		}
+	}
+}
+
+//Remplit les valeurs "value" et "weightDimension" en fonction de la valeur
+//et du poids des dimensions des objets dans le sac
+//POUR CODAGE INDIRECT
+void Load_Solution_indirect(Solution * solution, Instance * instance)
+{
+	int valid = 1;
+	
+	for (int i = 0; i < solution->nbObject; i++)
+	{
+		for (int j = 0; j < solution->nbDimension && valid; j++)
+		{
+			if (instance->object[solution->objectTab[i]]->weight[j] + solution->weightDimension[j] > instance->limit[j])
+			{
+				valid = 0;
+			}
+		}
+		
+		if (valid)
+		{
+			solution->value += instance->object[solution->objectTab[i]]->value;
+			for (int j = 0; j < solution->nbDimension; j++)
+			{
+				solution->weightDimension[j] += instance->object[solution->objectTab[i]]->weight[j];
+			}
+		}
+		
+		valid = 1;
 	}
 }
 
@@ -47,12 +105,15 @@ int Is_Solution_Feasible(Solution* solution, Instance * instance)
 int Solution_init(Solution * solution, int nbObject, int nbDimension)
 {
 	solution->nbObject = nbObject;
-	solution->objectBoolean = (int *) malloc(sizeof(int) * solution->nbObject);
-	if (solution->objectBoolean == NULL)
+	
+	solution->objectTab = (int *) malloc(sizeof(int) * solution->nbObject);
+	if (solution->objectTab == NULL)
 	{
 		return 1;
 	}
+	
 	solution->value = 0;
+	
 	solution->nbDimension = nbDimension;
 	solution->weightDimension = (int*) malloc (sizeof(int) * solution->nbDimension);
 	if (solution->weightDimension == NULL)
@@ -87,7 +148,7 @@ Solution * Solution_new(int nbObject, int nbDimension)
 
 void Solution_finalize(Solution * solution)
 {
-	free(solution->objectBoolean);
+	free(solution->objectTab);
 	free(solution->weightDimension);
 }
 
@@ -141,7 +202,7 @@ int SolutionArray_init(SolutionArray * solutions, int totalNbSolutions, int nbOb
 
 void SolutionArray_finalize(SolutionArray * solutions)
 {
-	for (int i = 0; i < solutions->totalNbSolutions; i++)
+	for (int i = 0; i < solutions->currentNbSolution; i++)
 	{
 		 Solution_delete(solutions->solutions[i]);
 	}
