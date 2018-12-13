@@ -37,6 +37,7 @@ int main(int argc, char **argv)
 	if(atoi(argv[2]) == 0)
 	{
 		solutions_output = fopen("solutions_output.txt", "w+");
+		/*
 		SolutionArray * solutions_direct = SolutionArray_new(datafile->TotalNbInstance, \
 													datafile->instance[0]->nbObjectTotal, \
 													datafile->instance[0]->nbDimension);
@@ -67,9 +68,9 @@ int main(int argc, char **argv)
 		}
 		
 		SolutionArray_delete(solutions_direct);
-		/*
+		*/
 		fprintf(solutions_output, "test\n");
-		Object ** tabObject = Ordonnancement_aleatoire(datafile->instance[0]);
+		Object ** tabObject = Ordonnancement_decroissant(datafile->instance[0]);
 		for (int i = 0; i < datafile->instance[0]->nbObjectTotal; i++)
 		{
 			fprintf(solutions_output, "%i ", datafile->instance[0]->object[i]->value);
@@ -80,7 +81,7 @@ int main(int argc, char **argv)
 			fprintf(solutions_output, "%i ", tabObject[i]->value);
 		}
 		free(tabObject);
-		*/
+		
 	}
 	
 	else if (atoi(argv[2]) == 1)
