@@ -1,5 +1,6 @@
 #include "stdlib.h"
 #include "include/parser.h"
+#include "include/codage.h"
 
 //FONCTIONS D'ORDONNANCEMENTS
 
@@ -58,7 +59,10 @@ Object ** Ordonnancement_decroissant(Instance * instance)
 		valMax = instance->object[tab[0]]->value;
 		indiceMax = tab[0];
 		indiceAEnlever = 0;
+<<<<<<< HEAD
 		//On parcourt uniquement les objets que l'on pas encore ajouté au tableau d'objet
+=======
+>>>>>>> 8fcd1a7f2a074ed0b6b7360441101e441ddd73a1
 		for (int j = 0; j < taille; j++)
 		{
 			//Lorsqu'on a trouvé un objet avec une plus grande valeur, on remplace la valMax actuelle
@@ -73,7 +77,10 @@ Object ** Ordonnancement_decroissant(Instance * instance)
 		//On ajoute l'objet trouvé au tableau d'objet
 		objectTab[i] = instance->object[indiceMax];
 		
+<<<<<<< HEAD
 		//Et on l'enlève du tableau d'indice pour ne pas réitérer dessus par la suite
+=======
+>>>>>>> 8fcd1a7f2a074ed0b6b7360441101e441ddd73a1
 		for (int j = indiceAEnlever; j < taille - 1; j++)
 		{
 			tab[j] = tab[j + 1];
@@ -99,6 +106,7 @@ Object ** Ordonnancement_ratio(Instance * instance)
 		tab[i] = i;
 	}
 	
+<<<<<<< HEAD
 	//On créer le tableau de ratio valeur/sommePoids
 	for (int i = 0; i < instance->nbObjectTotal; i++)
 	{
@@ -148,3 +156,45 @@ Object ** Ordonnancement_ratio(Instance * instance)
 	free(tabRatio);
 	return objectTab;
 }
+=======
+}
+
+// ALGORITHME HEURISTIQUE
+Solution * Algorithme_solutions (Instance * instance)
+{
+	Object * element;
+	Object ** tabObject = Ordonnancement_decroissant(instance);
+	Solution * sol = Solution_new(instance->nbObjectTotal, instance->nbDimension);
+	
+	for (int i = 0; i < instance->nbObjectTotal; i++)
+	{
+		// on initialise notre solution direct à 0
+		sol->objectTab[i] = 0;
+	}
+	
+	int valid = 1;
+	for (int j = 0; j < instance->nbObjectTotal; j++)
+	{
+		element = tabObject[j];
+		for (int k = 0; (k < instance->nbDimension) && valid; k++)
+		{
+			if (element->weight[k] + sol->weightDimension[k] > instance->limit[k])
+			{
+				valid = 0;
+			}
+		}
+		if (valid)
+		{
+			sol->value += instance->object[j]->value;
+			sol->objectTab[j] = 1;
+			for (int k = 0; k < sol->nbDimension; k++)
+			{
+				sol->weightDimension[k] += element->weight[k];
+			}
+		}
+		valid = 1;
+	}
+	
+	return sol;
+}
+>>>>>>> 8fcd1a7f2a074ed0b6b7360441101e441ddd73a1

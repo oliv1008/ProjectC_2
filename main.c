@@ -82,6 +82,10 @@ int main(int argc, char **argv)
 		}
 		free(tabObject);
 		
+		Solution * sol = Algorithme_solutions (datafile->instance[0]);
+		fprintf(solutions_output, "\n\n %i", sol->value);
+		Solution_delete(sol);
+		
 	}
 	
 	else if (atoi(argv[2]) == 1)
