@@ -76,3 +76,17 @@ Object ** Ordonnancement_decroissant(Instance * instance)
 	
 	return objectTab;
 }
+
+Object ** Ordonnancement_ratio(Instance * instance)
+{
+	//On créer un tableau de pointeur d'Object
+	// /!\ ATTENTION NE PAS FREE LES OBJECTS (le tableau agrège les objets de l'instance passée en paramètre)
+	Object ** objectTab = (Object **) malloc(sizeof(Object *) * instance->nbObjectTotal);
+	int * tab = (int *) malloc(sizeof(int) * instance->nbObjectTotal);
+	
+	for (int i = 0; i < instance->nbObjectTotal; i++)
+	{
+		tab[i] = i;
+	}
+	
+}

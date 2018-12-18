@@ -122,10 +122,3 @@ int main(int argc, char **argv)
 	DataFile_delete(datafile);
 	return 0;
 }
-
-/*void codageDirect(parser, solution)
-{
-	// on lit chaque objet et sa solution associée
-	// si solution = 1, on met l'objet dans le sac
-	// si solution = 0, ON LE TEJ (comme Felix)
-}*/
