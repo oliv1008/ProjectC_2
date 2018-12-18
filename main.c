@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 		SolutionArray_delete(solutions_direct);
 		*/
 		fprintf(solutions_output, "test\n");
-		Object ** tabObject = Ordonnancement_decroissant(datafile->instance[0]);
+		Object ** tabObject = Ordonnancement_ratio(datafile->instance[0]);
 		for (int i = 0; i < datafile->instance[0]->nbObjectTotal; i++)
 		{
 			fprintf(solutions_output, "%i ", datafile->instance[0]->object[i]->value);
