@@ -236,6 +236,7 @@ Solution * Algorithme_solutions (Instance * instance, Object ** (*ordo_fct)(Inst
 	Object * element;
 	Object ** tabObject = ordo_fct(instance);
 	Solution * sol = Solution_new(instance->nbObjectTotal, instance->nbDimension);
+	int priority = 1;
 	
 	for (int i = 0; i < instance->nbObjectTotal; i++)
 	{
@@ -261,6 +262,12 @@ Solution * Algorithme_solutions (Instance * instance, Object ** (*ordo_fct)(Inst
 			if (codage == 0)
 			{
 				sol->objectTab[j] = 1;
+			}
+			//Sinon si on travaille avec une solution indirect
+			else if (codage == 1)
+			{
+				sol->objectTab[j] = priority;
+				priority++;
 			}
 			for (int k = 0; k < sol->nbDimension; k++)
 			{
