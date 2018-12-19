@@ -59,10 +59,8 @@ Object ** Ordonnancement_decroissant(Instance * instance)
 		valMax = instance->object[tab[0]]->value;
 		indiceMax = tab[0];
 		indiceAEnlever = 0;
-<<<<<<< HEAD
+		
 		//On parcourt uniquement les objets que l'on pas encore ajouté au tableau d'objet
-=======
->>>>>>> 8fcd1a7f2a074ed0b6b7360441101e441ddd73a1
 		for (int j = 0; j < taille; j++)
 		{
 			//Lorsqu'on a trouvé un objet avec une plus grande valeur, on remplace la valMax actuelle
@@ -77,10 +75,7 @@ Object ** Ordonnancement_decroissant(Instance * instance)
 		//On ajoute l'objet trouvé au tableau d'objet
 		objectTab[i] = instance->object[indiceMax];
 		
-<<<<<<< HEAD
 		//Et on l'enlève du tableau d'indice pour ne pas réitérer dessus par la suite
-=======
->>>>>>> 8fcd1a7f2a074ed0b6b7360441101e441ddd73a1
 		for (int j = indiceAEnlever; j < taille - 1; j++)
 		{
 			tab[j] = tab[j + 1];
@@ -106,7 +101,6 @@ Object ** Ordonnancement_ratio(Instance * instance)
 		tab[i] = i;
 	}
 	
-<<<<<<< HEAD
 	//On créer le tableau de ratio valeur/sommePoids
 	for (int i = 0; i < instance->nbObjectTotal; i++)
 	{
@@ -156,14 +150,91 @@ Object ** Ordonnancement_ratio(Instance * instance)
 	free(tabRatio);
 	return objectTab;
 }
-=======
+
+Object ** Ordonnancement_critique(Instance * instance)
+{
+	//On créer un tableau de pointeur d'Object
+	// /!\ ATTENTION NE PAS FREE LES OBJECTS (le tableau agrège les objets de l'instance passée en paramètre)
+	Object ** objectTab = (Object **) malloc(sizeof(Object *) * instance->nbObjectTotal);
+	int * tab = (int *) malloc(sizeof(int) * instance->nbObjectTotal);
+	float * tabRatio = (float *) malloc(sizeof(float) * instance->nbObjectTotal);
+	
+	//On créer le tableau d'indice (utilisé pour garder trace des objets que l'on a déjà ajouté)
+	for (int i = 0; i < instance->nbObjectTotal; i++)
+	{
+		tab[i] = i;
+	}
+	
+	//On recherche la dimension critique
+	float ratioMaxActuel = 0;
+	float sommePoids = 0;
+	int indiceDimCritique = 0;
+	for (int i = 0; i < instance->nbDimension; i++)
+	{
+		for (int j = 0; j < instance->nbObjectTotal; j++)
+		{
+			sommePoids += instance->object[j]->weight[i];
+		}
+		
+		if (sommePoids / ((float)instance->limit[i]) > ratioMaxActuel)
+		{
+			ratioMaxActuel = sommePoids / ((float)instance->limit[i]);
+			indiceDimCritique = i;
+		}
+		
+		sommePoids = 0;
+	}
+	
+	//On créer le tableau de ratio valeur/sommePoids en prenant uniquement en compte la dimension critique
+	for (int i = 0; i < instance->nbObjectTotal; i++)
+	{
+		tabRatio[i] = ((float) instance->object[i]->value) / ((float) instance->object[i]->weight[indiceDimCritique]);
+	}
+	
+	float valMax = tabRatio[tab[0]];
+	int indiceValMax = tab[0];
+	int indiceAEnlever = 0;
+	int taille = instance->nbObjectTotal;
+	//A chaque itération on recherche l'objet avec la plus grande valeur
+	for (int i = 0; i < instance->nbObjectTotal; i++)
+	{
+		//On repart du début du tableau des objets restant
+		valMax = tabRatio[tab[0]];
+		indiceValMax = tab[0];
+		indiceAEnlever = 0;
+		//On parcourt uniquement les objets que l'on pas encore ajouté au tableau d'objet
+		for (int j = 0; j < taille; j++)
+		{
+			//Lorsqu'on a trouvé un objet avec une plus grande valeur, on remplace la valMax actuelle
+			//et on garde en mémoire sa position de manière à l'enlever plus tard
+			if (valMax < tabRatio[tab[j]])
+			{
+				valMax = tabRatio[tab[j]];
+				indiceValMax = tab[j];
+				indiceAEnlever = j;
+			}
+		}
+		//On ajoute l'objet trouvé au tableau d'objet
+		objectTab[i] = instance->object[indiceValMax];
+		
+		//Et on l'enlève du tableau d'indice pour ne pas réitérer dessus par la suite
+		for (int j = indiceAEnlever; j < taille - 1; j++)
+		{
+			tab[j] = tab[j + 1];
+		}
+		taille--;
+	}
+	
+	free(tab);
+	free(tabRatio);
+	return objectTab;
 }
 
 // ALGORITHME HEURISTIQUE
-Solution * Algorithme_solutions (Instance * instance)
+Solution * Algorithme_solutions (Instance * instance, Object ** (*ordo_fct)(Instance *), int codage)
 {
 	Object * element;
-	Object ** tabObject = Ordonnancement_decroissant(instance);
+	Object ** tabObject = ordo_fct(instance);
 	Solution * sol = Solution_new(instance->nbObjectTotal, instance->nbDimension);
 	
 	for (int i = 0; i < instance->nbObjectTotal; i++)
@@ -185,8 +256,12 @@ Solution * Algorithme_solutions (Instance * instance)
 		}
 		if (valid)
 		{
-			sol->value += instance->object[j]->value;
-			sol->objectTab[j] = 1;
+			sol->value += element->value;
+			//Si nous travaillons avec une solution direct
+			if (codage == 0)
+			{
+				sol->objectTab[j] = 1;
+			}
 			for (int k = 0; k < sol->nbDimension; k++)
 			{
 				sol->weightDimension[k] += element->weight[k];
@@ -197,4 +272,3 @@ Solution * Algorithme_solutions (Instance * instance)
 	
 	return sol;
 }
->>>>>>> 8fcd1a7f2a074ed0b6b7360441101e441ddd73a1

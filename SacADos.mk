@@ -5,29 +5,21 @@
 ## Debug
 ProjectName            :=SacADos
 ConfigurationName      :=Debug
-WorkspacePath          :=/home/lolo/Bureau/ProjectC_2
-ProjectPath            :=/home/lolo/Bureau/ProjectC_2
+WorkspacePath          :=/home/olivier/Bureau/Polytech/ProjetC_2/SacADos
+ProjectPath            :=/home/olivier/Bureau/Polytech/ProjetC_2/SacADos
 IntermediateDirectory  :=./Debug
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
-<<<<<<< HEAD
 User                   :=Olivier
-Date                   :=18/12/18
+Date                   :=19/12/18
 CodeLitePath           :=/home/olivier/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
-=======
-User                   :=Lolo
-Date                   :=18/12/18
-CodeLitePath           :=/home/lolo/.codelite
-LinkerName             :=gcc
-SharedObjectLinkerName :=gcc -shared -fPIC
->>>>>>> 8fcd1a7f2a074ed0b6b7360441101e441ddd73a1
 ObjectSuffix           :=.o
 DependSuffix           :=.o.d
-PreprocessSuffix       :=.o.i
+PreprocessSuffix       :=.i
 DebugSwitch            :=-g 
 IncludeSwitch          :=-I
 LibrarySwitch          :=-l
@@ -39,7 +31,7 @@ OutputFile             :=$(IntermediateDirectory)/$(ProjectName)
 Preprocessors          :=
 ObjectSwitch           :=-o 
 ArchiveOutputSwitch    := 
-PreprocessOnlySwitch   :=-E 
+PreprocessOnlySwitch   :=-E
 ObjectsFileList        :="SacADos.txt"
 PCHCompileFlags        :=
 MakeDirCommand         :=mkdir -p
@@ -55,20 +47,20 @@ LibPath                := $(LibraryPathSwitch).
 ## Common variables
 ## AR, CXX, CC, AS, CXXFLAGS and CFLAGS can be overriden using an environment variables
 ##
-AR       := ar rcus
-CXX      := gcc
-CC       := gcc
+AR       := /usr/bin/ar rcu
+CXX      := /usr/bin/g++
+CC       := /usr/bin/gcc
 CXXFLAGS :=  -g -O0 -Wall $(Preprocessors)
 CFLAGS   :=  -g -O0 -Wall $(Preprocessors)
 ASFLAGS  := 
-AS       := as
+AS       := /usr/bin/as
 
 
 ##
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix) $(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/parser.c$(ObjectSuffix) $(IntermediateDirectory)/source_codage.c$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/parser.c$(ObjectSuffix) $(IntermediateDirectory)/source_codage.c$(ObjectSuffix) $(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix) 
 
 
 
@@ -99,16 +91,8 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix): source/heuristique.c $(IntermediateDirectory)/source_heuristique.c$(DependSuffix)
-	$(CC) $(SourceSwitch) "/home/lolo/Bureau/ProjectC_2/source/heuristique.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/source_heuristique.c$(DependSuffix): source/heuristique.c
-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix) -MF$(IntermediateDirectory)/source_heuristique.c$(DependSuffix) -MM source/heuristique.c
-
-$(IntermediateDirectory)/source_heuristique.c$(PreprocessSuffix): source/heuristique.c
-	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/source_heuristique.c$(PreprocessSuffix) source/heuristique.c
-
 $(IntermediateDirectory)/main.c$(ObjectSuffix): main.c $(IntermediateDirectory)/main.c$(DependSuffix)
-	$(CC) $(SourceSwitch) "/home/lolo/Bureau/ProjectC_2/main.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IncludePath)
+	$(CC) $(SourceSwitch) "/home/olivier/Bureau/Polytech/ProjetC_2/SacADos/main.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/main.c$(DependSuffix): main.c
 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.c$(ObjectSuffix) -MF$(IntermediateDirectory)/main.c$(DependSuffix) -MM main.c
 
@@ -116,7 +100,7 @@ $(IntermediateDirectory)/main.c$(PreprocessSuffix): main.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.c$(PreprocessSuffix) main.c
 
 $(IntermediateDirectory)/parser.c$(ObjectSuffix): parser.c $(IntermediateDirectory)/parser.c$(DependSuffix)
-	$(CC) $(SourceSwitch) "/home/lolo/Bureau/ProjectC_2/parser.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/parser.c$(ObjectSuffix) $(IncludePath)
+	$(CC) $(SourceSwitch) "/home/olivier/Bureau/Polytech/ProjetC_2/SacADos/parser.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/parser.c$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/parser.c$(DependSuffix): parser.c
 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/parser.c$(ObjectSuffix) -MF$(IntermediateDirectory)/parser.c$(DependSuffix) -MM parser.c
 
@@ -124,12 +108,20 @@ $(IntermediateDirectory)/parser.c$(PreprocessSuffix): parser.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/parser.c$(PreprocessSuffix) parser.c
 
 $(IntermediateDirectory)/source_codage.c$(ObjectSuffix): source/codage.c $(IntermediateDirectory)/source_codage.c$(DependSuffix)
-	$(CC) $(SourceSwitch) "/home/lolo/Bureau/ProjectC_2/source/codage.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/source_codage.c$(ObjectSuffix) $(IncludePath)
+	$(CC) $(SourceSwitch) "/home/olivier/Bureau/Polytech/ProjetC_2/SacADos/source/codage.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/source_codage.c$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/source_codage.c$(DependSuffix): source/codage.c
 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/source_codage.c$(ObjectSuffix) -MF$(IntermediateDirectory)/source_codage.c$(DependSuffix) -MM source/codage.c
 
 $(IntermediateDirectory)/source_codage.c$(PreprocessSuffix): source/codage.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/source_codage.c$(PreprocessSuffix) source/codage.c
+
+$(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix): source/heuristique.c $(IntermediateDirectory)/source_heuristique.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "/home/olivier/Bureau/Polytech/ProjetC_2/SacADos/source/heuristique.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/source_heuristique.c$(DependSuffix): source/heuristique.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix) -MF$(IntermediateDirectory)/source_heuristique.c$(DependSuffix) -MM source/heuristique.c
+
+$(IntermediateDirectory)/source_heuristique.c$(PreprocessSuffix): source/heuristique.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/source_heuristique.c$(PreprocessSuffix) source/heuristique.c
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
