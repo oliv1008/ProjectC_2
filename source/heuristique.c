@@ -119,7 +119,7 @@ Solution * Algorithme_solutions (Instance * instance)
 		}
 		if (valid)
 		{
-			sol->value += instance->object[j]->value;
+			sol->value += element->value;
 			sol->objectTab[j] = 1;
 			for (int k = 0; k < sol->nbDimension; k++)
 			{
