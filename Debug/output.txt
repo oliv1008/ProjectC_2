@@ -1,270 +1,150 @@
 Numéro de l'instance = 0
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 0 = 0.000315
-=======
-Temps écoulé pour l'instance 0 = 0.000450
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 0 = 0.000635
 
 Numéro de l'instance = 1
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 1 = 0.000346
-=======
-Temps écoulé pour l'instance 1 = 0.000330
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 1 = 0.000552
 
 Numéro de l'instance = 2
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 2 = 0.000556
-=======
-Temps écoulé pour l'instance 2 = 0.000321
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 2 = 0.000549
 
 Numéro de l'instance = 3
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 3 = 0.000520
-=======
-Temps écoulé pour l'instance 3 = 0.000319
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 3 = 0.000612
 
 Numéro de l'instance = 4
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 4 = 0.000452
-=======
-Temps écoulé pour l'instance 4 = 0.000376
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 4 = 0.000542
 
 Numéro de l'instance = 5
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 5 = 0.000244
-=======
-Temps écoulé pour l'instance 5 = 0.000326
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 5 = 0.000549
 
 Numéro de l'instance = 6
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 6 = 0.000241
-=======
-Temps écoulé pour l'instance 6 = 0.000323
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 6 = 0.000551
 
 Numéro de l'instance = 7
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 7 = 0.000241
-=======
-Temps écoulé pour l'instance 7 = 0.000326
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 7 = 0.000541
 
 Numéro de l'instance = 8
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 8 = 0.000244
-=======
-Temps écoulé pour l'instance 8 = 0.000314
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 8 = 0.000582
 
 Numéro de l'instance = 9
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 9 = 0.000239
-=======
-Temps écoulé pour l'instance 9 = 0.000324
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 9 = 0.000542
 
 Numéro de l'instance = 10
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 10 = 0.000241
-=======
-Temps écoulé pour l'instance 10 = 0.000325
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 10 = 0.000564
 
 Numéro de l'instance = 11
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 11 = 0.000236
-=======
-Temps écoulé pour l'instance 11 = 0.000324
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 11 = 0.000543
 
 Numéro de l'instance = 12
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 12 = 0.000235
-=======
-Temps écoulé pour l'instance 12 = 0.000317
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 12 = 0.000548
 
 Numéro de l'instance = 13
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 13 = 0.000236
-=======
-Temps écoulé pour l'instance 13 = 0.000320
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 13 = 0.000540
 
 Numéro de l'instance = 14
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 14 = 0.000243
-=======
-Temps écoulé pour l'instance 14 = 0.000330
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 14 = 0.000573
 
 Numéro de l'instance = 15
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 15 = 0.000237
-=======
-Temps écoulé pour l'instance 15 = 0.000320
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 15 = 0.000602
 
 Numéro de l'instance = 16
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 16 = 0.000251
-=======
-Temps écoulé pour l'instance 16 = 0.000360
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 16 = 0.000648
 
 Numéro de l'instance = 17
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 17 = 0.000232
-=======
-Temps écoulé pour l'instance 17 = 0.000331
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 17 = 0.000515
 
 Numéro de l'instance = 18
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 18 = 0.000157
-=======
-Temps écoulé pour l'instance 18 = 0.000324
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 18 = 0.000303
 
 Numéro de l'instance = 19
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 19 = 0.000087
-=======
-Temps écoulé pour l'instance 19 = 0.000322
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 19 = 0.000352
 
 Numéro de l'instance = 20
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 20 = 0.000088
-=======
-Temps écoulé pour l'instance 20 = 0.000319
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 20 = 0.000390
 
 Numéro de l'instance = 21
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 21 = 0.000087
-=======
-Temps écoulé pour l'instance 21 = 0.000519
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 21 = 0.000404
 
 Numéro de l'instance = 22
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 22 = 0.000087
-=======
-Temps écoulé pour l'instance 22 = 0.000692
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 22 = 0.000364
 
 Numéro de l'instance = 23
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 23 = 0.000087
-=======
-Temps écoulé pour l'instance 23 = 0.000547
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 23 = 0.000199
 
 Numéro de l'instance = 24
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 24 = 0.000087
-=======
-Temps écoulé pour l'instance 24 = 0.000609
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 24 = 0.000177
 
 Numéro de l'instance = 25
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 25 = 0.000088
-=======
-Temps écoulé pour l'instance 25 = 0.000658
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 25 = 0.000165
 
 Numéro de l'instance = 26
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 26 = 0.000085
-=======
-Temps écoulé pour l'instance 26 = 0.000498
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 26 = 0.000196
 
 Numéro de l'instance = 27
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 27 = 0.000088
-=======
-Temps écoulé pour l'instance 27 = 0.000443
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 27 = 0.000210
 
 Numéro de l'instance = 28
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 28 = 0.000087
-=======
-Temps écoulé pour l'instance 28 = 0.000612
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 28 = 0.000161
 
 Numéro de l'instance = 29
-Nombre d'objet = 100
+Nombre d'objet = 250
 Nombre de dimension = 5
-<<<<<<< HEAD
-Temps écoulé pour l'instance 29 = 0.000089
-=======
-Temps écoulé pour l'instance 29 = 0.000599
->>>>>>> 6b00f47db10d5802a501aebbddd5f9f5f0c8912d
+Temps écoulé pour l'instance 29 = 0.000168
 
