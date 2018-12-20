@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 		
 		SolutionArray_delete(solutions_direct);
 		*/
-		fprintf(solutions_output, "test\n");
+		fprintf(solutions_output, "Ordo_critique\n");
 		Object ** tabObject = Ordonnancement_critique(datafile->instance[0]);
 		for (int i = 0; i < datafile->instance[0]->nbObjectTotal; i++)
 		{
@@ -82,9 +82,28 @@ int main(int argc, char **argv)
 		}
 		free(tabObject);
 		
+		
 		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_critique, atoi(argv[2]));
-		fprintf(solutions_output, "\n\n%i", sol->value);
+		fprintf(solutions_output, "\n\n%i\n\n", sol->value);
 		Solution_delete(sol);
+		
+		fprintf(solutions_output, "Ordo_dynamique\n");
+		Object ** tabObject2 = Ordonnancement_dynamique(datafile->instance[0]);
+		for (int i = 0; i < datafile->instance[0]->nbObjectTotal; i++)
+		{
+			fprintf(solutions_output, "%i ", datafile->instance[0]->object[i]->value);
+		}
+		fprintf(solutions_output, "\n");
+		for (int i = 0; i < datafile->instance[0]->nbObjectTotal; i++)
+		{
+			fprintf(solutions_output, "%i ", tabObject2[i]->value);
+		}
+		free(tabObject2);
+		
+		
+		Solution * sol2 = Algorithme_solutions (datafile->instance[0], Ordonnancement_dynamique, atoi(argv[2]));
+		fprintf(solutions_output, "\n\n%i\n\n", sol2->value);
+		Solution_delete(sol2);
 		
 	}
 	
