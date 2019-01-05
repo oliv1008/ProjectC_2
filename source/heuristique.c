@@ -239,6 +239,7 @@ Object ** Ordonnancement_dynamique(Instance * instance)
 	float * tabRatio = (float *) malloc(sizeof(float) * instance->nbObjectTotal);
 	int * tabLimit = (int *) malloc(sizeof(int) * instance->nbDimension);
 	
+	//INITIALISATION DES VARIABLES ET TABLEAUX
 	//On créer le tableau d'indice (utilisé pour garder trace des objets que l'on a déjà ajouté)
 	for (int i = 0; i < instance->nbObjectTotal; i++)
 	{
@@ -276,6 +277,7 @@ Object ** Ordonnancement_dynamique(Instance * instance)
 	{
 		tabLimit[i] = instance->limit[i];
 	}
+	//FIN INITIALISATION
 	
 	//A chaque itération on recherche l'objet avec la plus grande valeur
 	float valMax = tabRatio[tab[0]];
@@ -302,11 +304,6 @@ Object ** Ordonnancement_dynamique(Instance * instance)
 		}
 		//On ajoute l'objet trouvé au tableau d'objet
 		objectTab[i] = instance->object[indiceValMax];
-		//Et on met à jour le tableau de limites
-		for (int j = 0; j < instance->nbDimension; j++)
-		{
-			tabLimit[j] -= objectTab[i]->weight[j];
-		}
 		
 		//Et on l'enlève du tableau d'indice pour ne pas réitérer dessus par la suite
 		for (int j = indiceAEnlever; j < taille - 1; j++)
@@ -314,6 +311,12 @@ Object ** Ordonnancement_dynamique(Instance * instance)
 			tab[j] = tab[j + 1];
 		}
 		taille--;
+		
+		//Et on met à jour le tableau de limites
+		for (int j = 0; j < instance->nbDimension; j++)
+		{
+			tabLimit[j] -= objectTab[i]->weight[j];
+		}
 		
 		//On recherche la nouvelle dimension critique
 		ratioMaxActuel = 0;
@@ -349,6 +352,71 @@ Object ** Ordonnancement_dynamique(Instance * instance)
 	return objectTab;
 }
 
+Object ** Ordonnancement_leger(Instance * instance)
+{
+	//On créé un tableau de pointeur d'Object
+	// /!\ ATTENTION NE PAS FREE LES OBJECTS (le tableau agrège les objets de l'instance passée en paramètre)
+	Object ** objectTab = (Object **)malloc(sizeof(Object *) * instance->nbObjectTotal);
+	int * tab = (int *) malloc(sizeof(int) * instance->nbObjectTotal);
+	
+	//On créer le tableau d'indice (utilisé pour garder trace des objets que l'on a déjà ajouté)
+	for (int i = 0; i < instance->nbObjectTotal; i++)
+	{
+		tab[i] = i;
+	}
+	
+	int poidsMin = 0;
+	int poidsObject = 0;
+	int indiceMin;
+	int indiceAEnlever;
+	int taille = instance->nbObjectTotal;
+	//A chaque itération on recherche l'objet avec le poids le plus léger
+	for (int i = 0; i < instance->nbObjectTotal; i++)
+	{
+		// On repart du début du tableau des objets restants
+		// On calcule le poids min en sommant le poids de chaque dimensions
+		for (int j = 0; j < instance->nbDimension; j++)
+		{
+			poidsMin += instance->object[tab[0]]->weight[j];
+		}
+		indiceMin = tab[0];
+		indiceAEnlever = 0;
+		
+		//On parcourt uniquement les objets que l'on pas encore ajouté au tableau d'objet
+		for (int j = 0; j < taille; j++)
+		{
+			for (int k = 0; k < instance->nbDimension; k++)
+			{
+				poidsObject += instance->object[tab[j]]->weight[k];
+			}
+			// Lorsqu'on a trouvé un objet avec un poids plus léger, on remplace le poidsMin actuel
+			// et on garde en mémoire sa position de manière à l'enlever plus tard
+			if (poidsMin > poidsObject)
+			{
+				poidsMin = poidsObject;
+				indiceMin = tab[j];
+				indiceAEnlever = j;
+			}
+			poidsObject = 0; // on réinitialise à 0
+		}		
+		
+		//On ajoute l'objet trouvé au tableau d'objet
+		objectTab[i] = instance->object[indiceMin];
+		
+		//Et on l'enlève du tableau d'indice pour ne pas réitérer dessus par la suite
+		for (int j = indiceAEnlever; j < taille - 1; j++)
+		{
+			tab[j] = tab[j + 1];
+		}
+		
+		taille--;
+		poidsMin = 0; // on réinitialise à 0
+	}
+	
+	free(tab);
+	return objectTab;
+}	
+	
 // ALGORITHME HEURISTIQUE
 Solution * Algorithme_solutions (Instance * instance, Object ** (*ordo_fct)(Instance *), int codage)
 {
@@ -388,6 +456,7 @@ Solution * Algorithme_solutions (Instance * instance, Object ** (*ordo_fct)(Inst
 				sol->objectTab[j] = priority;
 				priority++;
 			}
+			
 			for (int k = 0; k < sol->nbDimension; k++)
 			{
 				sol->weightDimension[k] += element->weight[k];

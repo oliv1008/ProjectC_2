@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Olivier
-Date                   :=20/12/18
+Date                   :=05/01/19
 CodeLitePath           :=/home/olivier/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/parser.c$(ObjectSuffix) $(IntermediateDirectory)/source_codage.c$(ObjectSuffix) $(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/source_recherche_locale.c$(ObjectSuffix) $(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/parser.c$(ObjectSuffix) $(IntermediateDirectory)/source_codage.c$(ObjectSuffix) $(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix) 
 
 
 
@@ -91,6 +91,14 @@ PreBuild:
 ##
 ## Objects
 ##
+$(IntermediateDirectory)/source_recherche_locale.c$(ObjectSuffix): source/recherche_locale.c $(IntermediateDirectory)/source_recherche_locale.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "/home/olivier/Bureau/Polytech/ProjetC_2/SacADos/source/recherche_locale.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/source_recherche_locale.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/source_recherche_locale.c$(DependSuffix): source/recherche_locale.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/source_recherche_locale.c$(ObjectSuffix) -MF$(IntermediateDirectory)/source_recherche_locale.c$(DependSuffix) -MM source/recherche_locale.c
+
+$(IntermediateDirectory)/source_recherche_locale.c$(PreprocessSuffix): source/recherche_locale.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/source_recherche_locale.c$(PreprocessSuffix) source/recherche_locale.c
+
 $(IntermediateDirectory)/main.c$(ObjectSuffix): main.c $(IntermediateDirectory)/main.c$(DependSuffix)
 	$(CC) $(SourceSwitch) "/home/olivier/Bureau/Polytech/ProjetC_2/SacADos/main.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/main.c$(DependSuffix): main.c

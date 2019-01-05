@@ -69,8 +69,10 @@ int main(int argc, char **argv)
 		
 		SolutionArray_delete(solutions_direct);
 		*/
+
 		fprintf(solutions_output, "Ordo_critique\n");
 		Object ** tabObject = Ordonnancement_critique(datafile->instance[0]);
+		
 		for (int i = 0; i < datafile->instance[0]->nbObjectTotal; i++)
 		{
 			fprintf(solutions_output, "%i ", datafile->instance[0]->object[i]->value);
@@ -81,7 +83,6 @@ int main(int argc, char **argv)
 			fprintf(solutions_output, "%i ", tabObject[i]->value);
 		}
 		free(tabObject);
-		
 		
 		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_critique, atoi(argv[2]));
 		fprintf(solutions_output, "\n\n%i\n\n", sol->value);

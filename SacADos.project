@@ -3,6 +3,7 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="include">
+    <File Name="include/recherche_locale.h"/>
     <File Name="include/parser.h"/>
     <File Name="include/codage.h"/>
     <File Name="include/heuristique.h"/>
@@ -10,6 +11,7 @@
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
   <VirtualDirectory Name="source">
+    <File Name="source/recherche_locale.c"/>
     <File Name="main.c"/>
     <File Name="parser.c"/>
     <File Name="source/codage.c"/>
