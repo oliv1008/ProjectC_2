@@ -70,8 +70,8 @@ int main(int argc, char **argv)
 		SolutionArray_delete(solutions_direct);
 		*/
 
-		fprintf(solutions_output, "Ordo_critique\n");
-		Object ** tabObject = Ordonnancement_critique(datafile->instance[0]);
+		fprintf(solutions_output, "Ordo_ratio\n");
+		Object ** tabObject = Ordonnancement_ratio(datafile->instance[0]);
 		
 		for (int i = 0; i < datafile->instance[0]->nbObjectTotal; i++)
 		{
@@ -84,7 +84,7 @@ int main(int argc, char **argv)
 		}
 		free(tabObject);
 		
-		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_critique, atoi(argv[2]));
+		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_ratio, atoi(argv[2]));
 		fprintf(solutions_output, "\n\n%i\n\n", sol->value);
 		Solution_delete(sol);
 		
