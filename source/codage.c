@@ -87,7 +87,7 @@ void Load_Solution_indirect(Solution * solution, Instance * instance)
 	}
 }
 
-int Is_Solution_Feasible(Solution* solution, Instance * instance)
+int Is_Solution_Feasible(Solution * solution, Instance * instance)
 {
 	for (int i = 0; i < instance->nbDimension; i++)
 	{
@@ -98,6 +98,23 @@ int Is_Solution_Feasible(Solution* solution, Instance * instance)
 	}
 
 	return 1;
+}
+
+void copySolution(Solution * solutionFrom, Solution * solutionTo)
+{
+	for (int i = 0; i < solutionFrom->nbObject; i++)
+	{
+		solutionTo->objectTab[i] = solutionFrom->objectTab[i];
+	}
+	
+	solutionTo->nbObject = solutionFrom->nbObject;
+	solutionTo->nbDimension = solutionFrom->nbDimension;
+	solutionTo->value = solutionFrom->value;
+	
+	for (int j = 0; j < solutionFrom->nbDimension; j++)
+	{
+		solutionTo->weightDimension[j] = solutionFrom->weightDimension[j];
+	}
 }
 
 //FONCTIONS D'INITIALISATION DE SOLUTION

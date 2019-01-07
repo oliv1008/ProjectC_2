@@ -24,6 +24,7 @@ void Randomize_solution_indirect(Solution * solution);
 void Load_Solution_direct(Solution * solution, Instance * instance);
 void Load_Solution_indirect(Solution * solution, Instance * instance);
 int Is_Solution_Feasible(Solution* solution, Instance * instance);
+void copySolution(Solution * solutionFrom, Solution * solutionTo);
 
 //FONCTIONS D'INITIALISATION DE SOLUTION
 
