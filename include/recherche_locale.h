@@ -1,0 +1,1 @@
+SolutionArray * ajoutObject_direct(Solution * solution, Instance * instance);
