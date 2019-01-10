@@ -1,150 +1,150 @@
 Numéro de l'instance = 0
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 0 = 0.000152
+Temps écoulé pour l'instance 0 = 0.000479
 
 Numéro de l'instance = 1
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 1 = 0.000083
+Temps écoulé pour l'instance 1 = 0.000470
 
 Numéro de l'instance = 2
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 2 = 0.000107
+Temps écoulé pour l'instance 2 = 0.000242
 
 Numéro de l'instance = 3
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 3 = 0.000081
+Temps écoulé pour l'instance 3 = 0.000221
 
 Numéro de l'instance = 4
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 4 = 0.000079
+Temps écoulé pour l'instance 4 = 0.000220
 
 Numéro de l'instance = 5
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 5 = 0.000080
+Temps écoulé pour l'instance 5 = 0.000323
 
 Numéro de l'instance = 6
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 6 = 0.000080
+Temps écoulé pour l'instance 6 = 0.000431
 
 Numéro de l'instance = 7
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 7 = 0.000129
+Temps écoulé pour l'instance 7 = 0.000496
 
 Numéro de l'instance = 8
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 8 = 0.000135
+Temps écoulé pour l'instance 8 = 0.000408
 
 Numéro de l'instance = 9
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 9 = 0.000162
+Temps écoulé pour l'instance 9 = 0.000501
 
 Numéro de l'instance = 10
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 10 = 0.000177
+Temps écoulé pour l'instance 10 = 0.000479
 
 Numéro de l'instance = 11
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 11 = 0.000182
+Temps écoulé pour l'instance 11 = 0.000342
 
 Numéro de l'instance = 12
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 12 = 0.000167
+Temps écoulé pour l'instance 12 = 0.000318
 
 Numéro de l'instance = 13
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 13 = 0.000191
+Temps écoulé pour l'instance 13 = 0.000173
 
 Numéro de l'instance = 14
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 14 = 0.000089
+Temps écoulé pour l'instance 14 = 0.000189
 
 Numéro de l'instance = 15
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 15 = 0.000080
+Temps écoulé pour l'instance 15 = 0.000161
 
 Numéro de l'instance = 16
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 16 = 0.000092
+Temps écoulé pour l'instance 16 = 0.000172
 
 Numéro de l'instance = 17
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 17 = 0.000083
+Temps écoulé pour l'instance 17 = 0.000155
 
 Numéro de l'instance = 18
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 18 = 0.000076
+Temps écoulé pour l'instance 18 = 0.000091
 
 Numéro de l'instance = 19
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 19 = 0.000079
+Temps écoulé pour l'instance 19 = 0.000089
 
 Numéro de l'instance = 20
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 20 = 0.000083
+Temps écoulé pour l'instance 20 = 0.000088
 
 Numéro de l'instance = 21
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 21 = 0.000103
+Temps écoulé pour l'instance 21 = 0.000088
 
 Numéro de l'instance = 22
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 22 = 0.000079
+Temps écoulé pour l'instance 22 = 0.000090
 
 Numéro de l'instance = 23
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 23 = 0.000081
+Temps écoulé pour l'instance 23 = 0.000093
 
 Numéro de l'instance = 24
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 24 = 0.000071
+Temps écoulé pour l'instance 24 = 0.000089
 
 Numéro de l'instance = 25
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 25 = 0.000082
+Temps écoulé pour l'instance 25 = 0.000090
 
 Numéro de l'instance = 26
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 26 = 0.000070
+Temps écoulé pour l'instance 26 = 0.000086
 
 Numéro de l'instance = 27
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 27 = 0.000073
+Temps écoulé pour l'instance 27 = 0.000090
 
 Numéro de l'instance = 28
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 28 = 0.000072
+Temps écoulé pour l'instance 28 = 0.000090
 
 Numéro de l'instance = 29
 Nombre d'objet = 100
 Nombre de dimension = 5
-Temps écoulé pour l'instance 29 = 0.000071
+Temps écoulé pour l'instance 29 = 0.000091
 

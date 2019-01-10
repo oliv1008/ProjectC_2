@@ -15,16 +15,16 @@ SolutionArray * ajoutObject_direct(Solution * solution, Instance * instance)
 	
 	// on créé un tableau de solutions
 	SolutionArray * solVoisine = SolutionArray_new(solution->nbObject, solution->nbObject, solution->nbDimension);
-	//Solution * newSolution = Solution_new(instan))
 	
 	while (i != solution->nbObject)
 	{
+		// on parcourt tous les objets de la solution courante
+		// on copie la solution courante pour l'utiliser et la modifier temporairement
 		Solution * solutiontmp = Solution_new(solution->nbObject, solution->nbDimension);
 		copySolution(solution, solutiontmp);
-		// on parcourt toute la solution courante
 		while (boolC == 0)
 		{
-			// on parcourt la liste tant que l'on a pas trouvé un objet qui n'est pas dans le sac
+			// on parcourt la liste d'objets tant que l'on a pas trouvé un objet qui n'est pas dans le sac
 			if (solutiontmp->objectTab[i] == 1)
 			{
 				i++;
@@ -59,15 +59,92 @@ SolutionArray * ajoutObject_direct(Solution * solution, Instance * instance)
 
 // ECHANGE D'UN OBJET
 
-/*Solution ** echangeObject_direct(Solution * solution, Instance * instance)
+SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 {
+	int i = 0;
+	int j = 0;
+	int itmp = 0;
+	int indiceSolVoisine = 0;
+	int boolE = 0; // marqueur pour savoir s'il on a trouvé une possible solution
 	
-}*/
-
-
-
-// (2) on échange un objet (0 devient 1 et 1 devient 0), solutions voisines sont contituées des solutions réalisables résultantes de tous les échanges possibles.
-
+	// on créé un tableau de solutions
+	SolutionArray * solVoisine = SolutionArray_new(solution->nbObject, solution->nbObject, solution->nbDimension);
+	Solution * solutiontmp;
+	
+	for (i = 0; i < solution->nbObject-1; i++)
+	{
+		// on parcourt tous les objets de la solution courante
+		itmp = i;
+		if (solution->objectTab[i] == 0)
+		{
+			// si un objet n'est pas dans le sac
+			// on copie la solution courante pour l'utiliser et la modifier temporairement
+			solutiontmp = Solution_new(solution->nbObject, solution->nbDimension);
+			copySolution(solution, solutiontmp);
+			
+			while (boolE == 0)
+			{
+				// tant que l'on a pas échangé deux objets
+				for (j = itmp; j < solutiontmp->nbObject; j++)
+				{
+					// on parcourt la suite des objets pour l'échanger avec un objet du sac
+					if (solutiontmp->objectTab[j] == 1)
+					{
+						// si on trouve un objet du sac, on échange les deux objets
+						solutiontmp->objectTab[i] = 1;
+						solutiontmp->objectTab[j] = 0;
+						boolE = 1; // on notifie que l'on a trouvé une solution
+					}
+					itmp++;
+				}
+			}
+				
+			// on vérifie si cette solution est réalisable
+			if (Is_Solution_Feasible(solutiontmp, instance) == 1)
+			{
+				copySolution(solutiontmp, solVoisine->solutions[indiceSolVoisine]);
+				indiceSolVoisine++;
+			}
+			boolE = 0;
+			free(solutiontmp);
+		}
+		else
+		{
+			// si un objet est dans le sac
+			// on copie la solution courante pour l'utiliser et la modifier temporairement
+			solutiontmp = Solution_new(solution->nbObject, solution->nbDimension);
+			copySolution(solution, solutiontmp);
+			
+			while (boolE == 0)
+			{
+				// tant que l'on a pas échangé deux objets
+				for (j = itmp; j < solutiontmp->nbObject; j++)
+				{
+					// on parcourt la suite des objets pour l'échanger avec un objet hors du sac
+					if (solutiontmp->objectTab[j] == 0)
+					{
+						// si on trouve un objet qui n'est pas dans le sac, on échange les deux objets
+						solutiontmp->objectTab[i] = 0;
+						solutiontmp->objectTab[j] = 1;
+						boolE = 1; // on notifie que l'on a trouvé une solution
+					}
+					itmp++;
+				}
+			}
+				
+			// on vérifie si cette solution est réalisable
+			if (Is_Solution_Feasible(solutiontmp, instance) == 1)
+			{
+				copySolution(solutiontmp, solVoisine->solutions[indiceSolVoisine]);
+				indiceSolVoisine++;
+			}
+			boolE = 0;
+			free(solutiontmp);
+		}
+	}
+	
+	return solVoisine;
+}
 
 // POUR LE CODAGE INDIRECT
 // échange entre deux objets de la liste, qui donne une solution voisine. L'ensemble des solutions du voisinage est donné par tous les échanges possibles (N(N-1) / 2) possibilités.
