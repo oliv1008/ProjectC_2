@@ -70,9 +70,28 @@ int main(int argc, char **argv)
 		SolutionArray_delete(solutions_direct);
 		*/
 
+<<<<<<< HEAD
 		fprintf(solutions_output, "Ordo_critique\n");		
 		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_critique, atoi(argv[2]));
 		fprintf(solutions_output, "\n%i\n\n", sol->value);
+=======
+		fprintf(solutions_output, "Ordo_ratio\n");
+		Object ** tabObject = Ordonnancement_ratio(datafile->instance[0]);
+		
+		for (int i = 0; i < datafile->instance[0]->nbObjectTotal; i++)
+		{
+			fprintf(solutions_output, "%i ", datafile->instance[0]->object[i]->value);
+		}
+		fprintf(solutions_output, "\n");
+		for (int i = 0; i < datafile->instance[0]->nbObjectTotal; i++)
+		{
+			fprintf(solutions_output, "%i ", tabObject[i]->value);
+		}
+		free(tabObject);
+		
+		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_ratio, atoi(argv[2]));
+		fprintf(solutions_output, "\n\n%i\n\n", sol->value);
+>>>>>>> dfc1c51fd19bce570d120ec534ab977ce376eb39
 		Solution_delete(sol);
 		
 		fprintf(solutions_output, "Ordo_dynamique\n");
