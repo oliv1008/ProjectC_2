@@ -72,5 +72,16 @@ SolutionArray * ajoutObject_direct(Solution * solution, Instance * instance)
 // POUR LE CODAGE INDIRECT
 // échange entre deux objets de la liste, qui donne une solution voisine. L'ensemble des solutions du voisinage est donné par tous les échanges possibles (N(N-1) / 2) possibilités.
 
-
+/*
+ * Pour chaque objet du sac sauf le dernier
+	Pour i = indiceObjet + 1 jusqu'a nbObjectTotal
+		nouvelleSol = newSol()
+		nouvelleSol = copySol(solution_courante)
+		nouvelleSol = Echange sac[objet] avec sac[i]
+		Si solution réalisable
+			solVoisine[indiceSolVoisine] = nouvelleSol
+			indiceSolVoisine++
+		Sinon
+			free(nouvelleSol)
+*/
 
