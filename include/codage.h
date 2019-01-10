@@ -25,6 +25,8 @@ void Load_Solution_direct(Solution * solution, Instance * instance);
 void Load_Solution_indirect(Solution * solution, Instance * instance);
 int Is_Solution_Feasible(Solution* solution, Instance * instance);
 void copySolution(Solution * solutionFrom, Solution * solutionTo);
+void printSolutionToFile(Solution * solution, FILE * f);
+void printSolutionArrayToFile(SolutionArray * solArray, FILE * f);
 
 //FONCTIONS D'INITIALISATION DE SOLUTION
 

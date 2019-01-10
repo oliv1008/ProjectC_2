@@ -4,6 +4,7 @@
 #include "include/parser.h"
 #include "include/codage.h"
 #include "include/heuristique.h"
+#include "include/recherche_locale.h"
 
 int main(int argc, char **argv)
 {
@@ -70,50 +71,16 @@ int main(int argc, char **argv)
 		SolutionArray_delete(solutions_direct);
 		*/
 
-<<<<<<< HEAD
-		fprintf(solutions_output, "Ordo_critique\n");		
+		fprintf(solutions_output, "Ordo_critique\n");
 		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_critique, atoi(argv[2]));
-		fprintf(solutions_output, "\n%i\n\n", sol->value);
-=======
-		fprintf(solutions_output, "Ordo_ratio\n");
-		Object ** tabObject = Ordonnancement_ratio(datafile->instance[0]);
+		printSolutionToFile(sol, solutions_output);
 		
-		for (int i = 0; i < datafile->instance[0]->nbObjectTotal; i++)
-		{
-			fprintf(solutions_output, "%i ", datafile->instance[0]->object[i]->value);
-		}
-		fprintf(solutions_output, "\n");
-		for (int i = 0; i < datafile->instance[0]->nbObjectTotal; i++)
-		{
-			fprintf(solutions_output, "%i ", tabObject[i]->value);
-		}
-		free(tabObject);
+		fprintf(solutions_output, "solArray\n");
+		SolutionArray * solArray = echangeObject_direct(sol, datafile->instance[0]);
+		printSolutionArrayToFile(solArray, solutions_output);
 		
-		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_ratio, atoi(argv[2]));
-		fprintf(solutions_output, "\n\n%i\n\n", sol->value);
->>>>>>> dfc1c51fd19bce570d120ec534ab977ce376eb39
 		Solution_delete(sol);
-		
-		fprintf(solutions_output, "Ordo_dynamique\n");
-		Solution * sol2 = Algorithme_solutions (datafile->instance[0], Ordonnancement_dynamique, atoi(argv[2]));
-		fprintf(solutions_output, "\n%i\n\n", sol2->value);
-		Solution_delete(sol2);
-		
-		fprintf(solutions_output, "Ordo_decroissant\n");
-		Solution * sol3 = Algorithme_solutions (datafile->instance[0], Ordonnancement_decroissant, atoi(argv[2]));
-		fprintf(solutions_output, "\n%i\n\n", sol3->value);
-		Solution_delete(sol3);
-		
-		fprintf(solutions_output, "Ordo_ratio\n");
-		Solution * sol4 = Algorithme_solutions (datafile->instance[0], Ordonnancement_ratio, atoi(argv[2]));
-		fprintf(solutions_output, "\n%i\n\n", sol4->value);
-		Solution_delete(sol4);
-		
-		fprintf(solutions_output, "Ordo_leger\n");
-		Solution * sol5 = Algorithme_solutions (datafile->instance[0], Ordonnancement_leger, atoi(argv[2]));
-		fprintf(solutions_output, "\n%i\n\n", sol5->value);
-		Solution_delete(sol5);
-		
+		SolutionArray_delete(solArray);
 	}
 	
 	else if (atoi(argv[2]) == 1)
@@ -152,5 +119,6 @@ int main(int argc, char **argv)
 	}
 	
 	DataFile_delete(datafile);
+	fclose(solutions_output);
 	return 0;
 }
