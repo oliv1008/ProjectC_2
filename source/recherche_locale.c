@@ -22,7 +22,7 @@ SolutionArray * ajoutObject_direct(Solution * solution, Instance * instance)
 		// on copie la solution courante pour l'utiliser et la modifier temporairement
 		Solution * solutiontmp = Solution_new(solution->nbObject, solution->nbDimension);
 		copySolution(solution, solutiontmp);
-		while (boolC == 0)
+		while (boolC == 0 && i != solution->nbObject)
 		{
 			// on parcourt la liste d'objets tant que l'on a pas trouvé un objet qui n'est pas dans le sac
 			if (solutiontmp->objectTab[i] == 1)
@@ -85,7 +85,7 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 			while (boolE == 0)
 			{
 				// tant que l'on a pas échangé deux objets
-				for (j = itmp; j < solutiontmp->nbObject; j++)
+				for (j = itmp; j < solutiontmp->nbObject && boolE==0; j++)
 				{
 					// on parcourt la suite des objets pour l'échanger avec un objet du sac
 					if (solutiontmp->objectTab[j] == 1)
@@ -97,7 +97,7 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 					}
 					itmp++;
 				}
-			}
+			}			
 				
 			// on vérifie si cette solution est réalisable
 			if (Is_Solution_Feasible(solutiontmp, instance) == 1)
@@ -118,7 +118,7 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 			while (boolE == 0)
 			{
 				// tant que l'on a pas échangé deux objets
-				for (j = itmp; j < solutiontmp->nbObject; j++)
+				for (j = itmp; j < solutiontmp->nbObject && boolE == 0; j++)
 				{
 					// on parcourt la suite des objets pour l'échanger avec un objet hors du sac
 					if (solutiontmp->objectTab[j] == 0)
