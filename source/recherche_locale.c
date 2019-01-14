@@ -10,7 +10,6 @@
 SolutionArray * ajoutObject_direct(Solution * solution, Instance * instance)
 {
 	int i = 0;
-	int indiceSolVoisine = 0;
 	int boolC = 0;
 	
 	// on créé un tableau de solutions
@@ -33,6 +32,12 @@ SolutionArray * ajoutObject_direct(Solution * solution, Instance * instance)
 			{
 				// si un objet n'est pas dans le sac, on le rajoute
 				solutiontmp->objectTab[i] = 1;
+				solutiontmp->value += instance->object[i]->value;
+				for (int j = 0; j < solutiontmp->nbDimension; j++)
+				{
+					solutiontmp->weightDimension[j] += instance->object[i]->weight[j];
+				}
+				
 				boolC = 1;
 			}
 		}
@@ -40,8 +45,8 @@ SolutionArray * ajoutObject_direct(Solution * solution, Instance * instance)
 		// on vérifie si cette solution est réalisable
 		if (Is_Solution_Feasible(solutiontmp, instance) == 1)
 		{
-			copySolution(solutiontmp, solVoisine->solutions[indiceSolVoisine]);
-			indiceSolVoisine++;
+			copySolution(solutiontmp, solVoisine->solutions[solVoisine->currentNbSolution]);
+			solVoisine->currentNbSolution++;
 			boolC = 0;
 			i++;
 			free(solutiontmp);
@@ -54,6 +59,7 @@ SolutionArray * ajoutObject_direct(Solution * solution, Instance * instance)
 		}	
 	}
 	
+	printf("solVoisine->currentNbSolution : %i\n", solVoisine->currentNbSolution);
 	return solVoisine;
 }
 
@@ -91,8 +97,21 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 					if (solutiontmp->objectTab[j] == 1)
 					{
 						// si on trouve un objet du sac, on échange les deux objets
+						// on commence par ajouter l'objet i
 						solutiontmp->objectTab[i] = 1;
+						solutiontmp->value += instance->object[i]->value;
+						for (int w = 0; w < solutiontmp->nbDimension; w++)
+						{
+							solutiontmp->weightDimension[w] += instance->object[i]->weight[w];
+						}
+						
+						//et on enleve ensuite l'objet j
 						solutiontmp->objectTab[j] = 0;
+						solutiontmp->value -= instance->object[j]->value;
+						for (int w = 0; w < solutiontmp->nbDimension; w++)
+						{
+							solutiontmp->weightDimension[w] -= instance->object[j]->weight[w];
+						}
 						boolE = 1; // on notifie que l'on a trouvé une solution
 					}
 					itmp++;
@@ -124,8 +143,22 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 					if (solutiontmp->objectTab[j] == 0)
 					{
 						// si on trouve un objet qui n'est pas dans le sac, on échange les deux objets
+						//on commence par enlever l'objet i
 						solutiontmp->objectTab[i] = 0;
+						solutiontmp->value -= instance->object[i]->value;
+						for (int w = 0; w < solutiontmp->nbDimension; w++)
+						{
+							solutiontmp->weightDimension[w] -= instance->object[i]->weight[w];
+						}
+						
+						//puis on rajoute l'objet j
 						solutiontmp->objectTab[j] = 1;
+						solutiontmp->value += instance->object[j]->value;
+						for (int w = 0; w < solutiontmp->nbDimension; w++)
+						{
+							solutiontmp->weightDimension[w] += instance->object[j]->weight[w];
+						}
+						
 						boolE = 1; // on notifie que l'on a trouvé une solution
 					}
 					itmp++;
@@ -149,5 +182,16 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 // POUR LE CODAGE INDIRECT
 // échange entre deux objets de la liste, qui donne une solution voisine. L'ensemble des solutions du voisinage est donné par tous les échanges possibles (N(N-1) / 2) possibilités.
 
-
+/*
+ * Pour chaque objet du sac sauf le dernier
+	Pour i = indiceObjet + 1 jusqu'a nbObjectTotal
+		nouvelleSol = newSol()
+		nouvelleSol = copySol(solution_courante)
+		nouvelleSol = Echange sac[objet] avec sac[i]
+		Si solution réalisable
+			solVoisine[indiceSolVoisine] = nouvelleSol
+			indiceSolVoisine++
+		Sinon
+			free(nouvelleSol)
+*/
 

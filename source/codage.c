@@ -117,13 +117,39 @@ void copySolution(Solution * solutionFrom, Solution * solutionTo)
 	}
 }
 
+void printSolutionToFile(Solution * solution, FILE * f)
+{
+	for (int i = 0; i < solution->nbObject; i++)
+	{
+		{
+			fprintf(f, "%i:%i ", i, solution->objectTab[i]);
+		}
+	}
+	
+	fprintf(f, "\nScore solution : %i\n\n", solution->value);
+}
+
+void printSolutionArrayToFile(SolutionArray * solArray, FILE * f)
+{
+	if (f == NULL)
+	{
+		f = fopen("output.txt", "w");
+	}
+	
+	for (int i = 0; i < solArray->currentNbSolution; i++)
+	{
+		fprintf(f, "Solution %i\n", i);
+		printSolutionToFile(solArray->solutions[i], f);
+	}
+}
+
 //FONCTIONS D'INITIALISATION DE SOLUTION
 
 int Solution_init(Solution * solution, int nbObject, int nbDimension)
 {
 	solution->nbObject = nbObject;
 	
-	solution->objectTab = (int *) malloc(sizeof(int) * solution->nbObject);
+	solution->objectTab = (int *) calloc(solution->nbObject, sizeof(int));
 	if (solution->objectTab == NULL)
 	{
 		return 1;

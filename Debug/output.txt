@@ -1,4 +1,5 @@
 Numéro de l'instance = 0
+<<<<<<< HEAD
 Nombre d'objet = 250
 Nombre de dimension = 30
 Temps écoulé pour l'instance 0 = 0.001035
@@ -147,4 +148,154 @@ Numéro de l'instance = 29
 Nombre d'objet = 250
 Nombre de dimension = 30
 Temps écoulé pour l'instance 29 = 0.000911
+=======
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 0 = 0.000394
+
+Numéro de l'instance = 1
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 1 = 0.000329
+
+Numéro de l'instance = 2
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 2 = 0.000322
+
+Numéro de l'instance = 3
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 3 = 0.000320
+
+Numéro de l'instance = 4
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 4 = 0.000320
+
+Numéro de l'instance = 5
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 5 = 0.000375
+
+Numéro de l'instance = 6
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 6 = 0.000337
+
+Numéro de l'instance = 7
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 7 = 0.000326
+
+Numéro de l'instance = 8
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 8 = 0.000320
+
+Numéro de l'instance = 9
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 9 = 0.000328
+
+Numéro de l'instance = 10
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 10 = 0.000325
+
+Numéro de l'instance = 11
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 11 = 0.000366
+
+Numéro de l'instance = 12
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 12 = 0.000343
+
+Numéro de l'instance = 13
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 13 = 0.000322
+
+Numéro de l'instance = 14
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 14 = 0.000329
+
+Numéro de l'instance = 15
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 15 = 0.000321
+
+Numéro de l'instance = 16
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 16 = 0.000335
+
+Numéro de l'instance = 17
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 17 = 0.000360
+
+Numéro de l'instance = 18
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 18 = 0.000328
+
+Numéro de l'instance = 19
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 19 = 0.000324
+
+Numéro de l'instance = 20
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 20 = 0.000320
+
+Numéro de l'instance = 21
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 21 = 0.000321
+
+Numéro de l'instance = 22
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 22 = 0.000323
+
+Numéro de l'instance = 23
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 23 = 0.000325
+
+Numéro de l'instance = 24
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 24 = 0.000430
+
+Numéro de l'instance = 25
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 25 = 0.000330
+
+Numéro de l'instance = 26
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 26 = 0.000623
+
+Numéro de l'instance = 27
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 27 = 0.000495
+
+Numéro de l'instance = 28
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 28 = 0.000641
+
+Numéro de l'instance = 29
+Nombre d'objet = 100
+Nombre de dimension = 5
+Temps écoulé pour l'instance 29 = 0.000502
+>>>>>>> edfc5217a17a25782a610e7af9bcc7f5a70e4c69
 

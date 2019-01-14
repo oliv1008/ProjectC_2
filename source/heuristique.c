@@ -339,7 +339,6 @@ Object ** Ordonnancement_dynamique(Instance * instance)
 		}
 		
 		//On met à jours le tableau de ratio valeur/sommePoids en prenant uniquement en compte la nouvelle dimension critique
-		printf("dimension critique = %i\n", indiceDimCritique);
 		for (int w = 0; w < instance->nbObjectTotal; w++)
 		{
 			tabRatio[w] = ((float) instance->object[w]->value) / ((float) instance->object[w]->weight[indiceDimCritique]);

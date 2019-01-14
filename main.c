@@ -4,6 +4,7 @@
 #include "include/parser.h"
 #include "include/codage.h"
 #include "include/heuristique.h"
+#include "include/recherche_locale.h"
 
 int main(int argc, char **argv)
 {
@@ -69,6 +70,20 @@ int main(int argc, char **argv)
 		
 		SolutionArray_delete(solutions_direct);
 		*/
+<<<<<<< HEAD
+=======
+
+		fprintf(solutions_output, "Ordo_critique\n");
+		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_critique, atoi(argv[2]));
+		printSolutionToFile(sol, solutions_output);
+		
+		fprintf(solutions_output, "solArray\n");
+		SolutionArray * solArray = echangeObject_direct(sol, datafile->instance[0]);
+		printSolutionArrayToFile(solArray, solutions_output);
+		
+		Solution_delete(sol);
+		SolutionArray_delete(solArray);
+>>>>>>> edfc5217a17a25782a610e7af9bcc7f5a70e4c69
 	}
 	
 	else if (atoi(argv[2]) == 1)
@@ -107,5 +122,6 @@ int main(int argc, char **argv)
 	}
 	
 	DataFile_delete(datafile);
+	fclose(solutions_output);
 	return 0;
 }
