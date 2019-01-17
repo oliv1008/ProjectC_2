@@ -70,20 +70,18 @@ int main(int argc, char **argv)
 		
 		SolutionArray_delete(solutions_direct);
 		*/
-<<<<<<< HEAD
-=======
-
-		fprintf(solutions_output, "Ordo_critique\n");
-		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_critique, atoi(argv[2]));
+		fprintf(solutions_output, "Ordo_aleatoire\n");
+		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_aleatoire, atoi(argv[2]));
 		printSolutionToFile(sol, solutions_output);
 		
 		fprintf(solutions_output, "solArray\n");
 		SolutionArray * solArray = echangeObject_direct(sol, datafile->instance[0]);
+		
+		fprintf(solutions_output,"%i\n",solArray->currentNbSolution);
 		printSolutionArrayToFile(solArray, solutions_output);
 		
 		Solution_delete(sol);
 		SolutionArray_delete(solArray);
->>>>>>> edfc5217a17a25782a610e7af9bcc7f5a70e4c69
 	}
 	
 	else if (atoi(argv[2]) == 1)
