@@ -67,55 +67,50 @@ SolutionArray * ajoutObject_direct(Solution * solution, Instance * instance)
 
 SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 {
-	int i = 0;
-	int j = 0;
-	int itmp = 0;
-	int indiceSolVoisine = 0;
-	int boolE = 0; // marqueur pour savoir s'il on a trouvé une possible solution
+	int nbMaxSolutions = ((solution->nbObject * solution->nbObject-1)/2);
 	
 	// on créé un tableau de solutions
-	SolutionArray * solVoisine = SolutionArray_new(solution->nbObject, solution->nbObject, solution->nbDimension);
+	SolutionArray * solVoisine = SolutionArray_new(nbMaxSolutions, solution->nbObject, solution->nbDimension);
 	Solution * solutiontmp;
 	
-	for (i = 0; i < solution->nbObject-1; i++)
+	for (int indiceObjetAEchanger = 0; indiceObjetAEchanger < solution->nbObject-1; indiceObjetAEchanger++)
 	{
-		// on parcourt tous les objets de la solution courante
-		itmp = i;
-		if (solution->objectTab[i] == 0)
+		// on parcourt tous les objets de l'instance
+		for (int indiceObjetParcouru = indiceObjetAEchanger+1; indiceObjetParcouru < solution->nbObject; indiceObjetParcouru++)
 		{
-			// si un objet n'est pas dans le sac
-			// on copie la solution courante pour l'utiliser et la modifier temporairement
-			solutiontmp = Solution_new(solution->nbObject, solution->nbDimension);
-			copySolution(solution, solutiontmp);
-			
-			while (boolE == 0)
+			// on parcourt les objets à la suite de l'objet à échanger pour effectuer les échanges
+			if (solution->objectTab[indiceObjetAEchanger] != solution->objectTab[indiceObjetParcouru])
 			{
+<<<<<<< HEAD
 				// tant que l'on a pas échangé deux objets
 				for (j = itmp; j < solutiontmp->nbObject && boolE == 0; j++)
+=======
+				// si on trouve un objet dans le sac à échanger avec un objet hors du sac
+				// on créé une copie de la solution pour pouvoir la modifier temporairement
+				solutiontmp = Solution_new(instance->nbObjectTotal, instance->nbDimension);
+				copySolution(solution, solutiontmp);
+				
+				// on échange les deux objets
+				int indicetmp = solutiontmp->objectTab[indiceObjetAEchanger];
+				solutiontmp->objectTab[indiceObjetAEchanger] = solutiontmp->objectTab[indiceObjetParcouru];
+				solutiontmp->objectTab[indiceObjetParcouru] = indicetmp;
+				
+				// on ajoute la valeur et les poids de l'objet ajouté au sac
+				// on retire la valeur et les poids de l'objet enlevé du sac
+				if (solutiontmp->objectTab[indiceObjetAEchanger] == 1)
+>>>>>>> 6e5a54bdad3a2670f535bdfa07e72ddb0a1f505d
 				{
-					// on parcourt la suite des objets pour l'échanger avec un objet du sac
-					if (solutiontmp->objectTab[j] == 1)
+					solutiontmp->value += instance->object[indiceObjetAEchanger]->value;
+					solutiontmp->value -= instance->object[indiceObjetParcouru]->value;
+					
+					for (int i = 0; i < solutiontmp->nbDimension; i++)
 					{
-						// si on trouve un objet du sac, on échange les deux objets
-						// on commence par ajouter l'objet i
-						solutiontmp->objectTab[i] = 1;
-						solutiontmp->value += instance->object[i]->value;
-						for (int w = 0; w < solutiontmp->nbDimension; w++)
-						{
-							solutiontmp->weightDimension[w] += instance->object[i]->weight[w];
-						}
+						solutiontmp->weightDimension[i] += instance->object[indiceObjetAEchanger]->weight[i];
+						solutiontmp->weightDimension[i] -= instance->object[indiceObjetParcouru]->weight[i];
 						
-						//et on enleve ensuite l'objet j
-						solutiontmp->objectTab[j] = 0;
-						solutiontmp->value -= instance->object[j]->value;
-						for (int w = 0; w < solutiontmp->nbDimension; w++)
-						{
-							solutiontmp->weightDimension[w] -= instance->object[j]->weight[w];
-						}
-						boolE = 1; // on notifie que l'on a trouvé une solution
 					}
-					itmp++;
 				}
+<<<<<<< HEAD
 			}
 				
 			// on vérifie si cette solution est réalisable
@@ -138,41 +133,29 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 			{
 				// tant que l'on a pas échangé deux objets
 				for (j = itmp; j < solutiontmp->nbObject && boolE == 0; j++)
+=======
+				else
+>>>>>>> 6e5a54bdad3a2670f535bdfa07e72ddb0a1f505d
 				{
-					// on parcourt la suite des objets pour l'échanger avec un objet hors du sac
-					if (solutiontmp->objectTab[j] == 0)
+					solutiontmp->value -= instance->object[indiceObjetAEchanger]->value;
+					solutiontmp->value += instance->object[indiceObjetParcouru]->value;
+					
+					for (int i = 0; i < solutiontmp->nbDimension; i++)
 					{
-						// si on trouve un objet qui n'est pas dans le sac, on échange les deux objets
-						//on commence par enlever l'objet i
-						solutiontmp->objectTab[i] = 0;
-						solutiontmp->value -= instance->object[i]->value;
-						for (int w = 0; w < solutiontmp->nbDimension; w++)
-						{
-							solutiontmp->weightDimension[w] -= instance->object[i]->weight[w];
-						}
+						solutiontmp->weightDimension[i] -= instance->object[indiceObjetAEchanger]->weight[i];
+						solutiontmp->weightDimension[i] += instance->object[indiceObjetParcouru]->weight[i];
 						
-						//puis on rajoute l'objet j
-						solutiontmp->objectTab[j] = 1;
-						solutiontmp->value += instance->object[j]->value;
-						for (int w = 0; w < solutiontmp->nbDimension; w++)
-						{
-							solutiontmp->weightDimension[w] += instance->object[j]->weight[w];
-						}
-						
-						boolE = 1; // on notifie que l'on a trouvé une solution
 					}
-					itmp++;
 				}
-			}
 				
-			// on vérifie si cette solution est réalisable
-			if (Is_Solution_Feasible(solutiontmp, instance) == 1)
-			{
-				copySolution(solutiontmp, solVoisine->solutions[indiceSolVoisine]);
-				indiceSolVoisine++;
+				// on vérifie si cette solution est réalisable
+				if (Is_Solution_Feasible(solutiontmp, instance) == 1)
+				{
+					copySolution(solutiontmp, solVoisine->solutions[solVoisine->currentNbSolution]);
+					solVoisine->currentNbSolution++;
+				}
+				Solution_delete(solutiontmp);
 			}
-			boolE = 0;
-			free(solutiontmp);
 		}
 	}
 	
@@ -193,6 +176,7 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 			indiceSolVoisine++
 		Sinon
 			free(nouvelleSol)
+<<<<<<< HEAD
 */
 
 SolutionArray * voisinage_indirect(Solution * solution, Instance * instance)
@@ -223,3 +207,6 @@ SolutionArray * voisinage_indirect(Solution * solution, Instance * instance)
 	
 	return solVoisine;
 }
+=======
+*/
+>>>>>>> 6e5a54bdad3a2670f535bdfa07e72ddb0a1f505d

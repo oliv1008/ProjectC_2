@@ -70,6 +70,7 @@ int main(int argc, char **argv)
 		
 		SolutionArray_delete(solutions_direct);
 		*/
+<<<<<<< HEAD
 
 		fprintf(solutions_output, "Ordo_decroissant\n");
 		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_decroissant, 1);
@@ -77,6 +78,16 @@ int main(int argc, char **argv)
 		
 		fprintf(solutions_output, "solArray\n");
 		SolutionArray * solArray = voisinage_indirect(sol, datafile->instance[0]);
+=======
+		fprintf(solutions_output, "Ordo_aleatoire\n");
+		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_aleatoire, atoi(argv[2]));
+		printSolutionToFile(sol, solutions_output);
+		
+		fprintf(solutions_output, "solArray\n");
+		SolutionArray * solArray = echangeObject_direct(sol, datafile->instance[0]);
+		
+		fprintf(solutions_output,"%i\n",solArray->currentNbSolution);
+>>>>>>> 6e5a54bdad3a2670f535bdfa07e72ddb0a1f505d
 		printSolutionArrayToFile(solArray, solutions_output);
 
 		Solution_delete(sol);
