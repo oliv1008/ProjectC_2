@@ -130,7 +130,6 @@ void Object_delete(Object * object)
 int Instance_init(Instance * instance, int nbObjectTotal, int nbDimension)
 {
 	instance->nbObjectTotal = nbObjectTotal;
-	instance->nbObjectCurrent = 0;
 	instance->nbDimension = nbDimension;
 	instance->object = (Object**) malloc(sizeof(Object*) * instance->nbObjectTotal);
 	if (instance->object == NULL)
@@ -170,7 +169,7 @@ Instance * Instance_new(int nbObjectTotal, int nbDimension)
 
 void Instance_finalize(Instance * instance)
 {
-	for (int i = 0; i < instance->nbObjectCurrent; i++)
+	for (int i = 0; i < instance->nbObjectTotal; i++)
 	{
 		Object_delete(instance->object[i]);
 	}
@@ -182,21 +181,6 @@ void Instance_delete(Instance * instance)
 {
 	Instance_finalize(instance);
 	free(instance);
-}
-
-int Instance_addObject(Instance * instance, Object * object)
-{
-	//Si l'instance n'est pas déjà pleine, on ajoute l'object
-	if (instance->nbObjectCurrent < instance->nbObjectTotal)
-	{
-		instance->object[instance->nbObjectCurrent] = object;
-		instance->nbObjectCurrent++;
-		
-		return 0;
-	}
-	
-	//Sinon on renvoie une erreur
-	return 1;
 }
 
 //FONCTIONS DATAFILE

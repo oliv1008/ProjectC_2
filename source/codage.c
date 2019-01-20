@@ -62,28 +62,53 @@ void Load_Solution_direct(Solution * solution, Instance * instance)
 //POUR CODAGE INDIRECT
 void Load_Solution_indirect(Solution * solution, Instance * instance)
 {
-	int valid = 1;
+	int value = 0;
+	int * weightDimension = (int*) calloc(instance->nbDimension, sizeof(int));
+	int indiceObjet = 0;
+	int priority = 1;
+	int boolFindIndice = 1;
+	int boolValid = 1;
 	
+	//Pour autant d'objet qu'il y a dans la solution
 	for (int i = 0; i < solution->nbObject; i++)
 	{
-		for (int j = 0; j < solution->nbDimension && valid; j++)
+		//On commence par chercher l'indice de l'objet de la priorite suivante
+		for (int j = 0; j < solution->nbObject && boolFindIndice; j++)
 		{
-			if (instance->object[solution->objectTab[i]]->weight[j] + solution->weightDimension[j] > instance->limit[j])
+			if (solution->objectTab[j] == priority)
 			{
-				valid = 0;
+				indiceObjet = j;
+				boolFindIndice = 0;
+				priority++;
 			}
 		}
+		boolFindIndice = 1;
 		
-		if (valid)
+		//On regarde ensuite si l'ajout de l'objet ne rend pas la solution infaisable
+		for (int j = 0; j < instance->nbDimension && boolValid; j++)
 		{
-			solution->value += instance->object[solution->objectTab[i]]->value;
-			for (int j = 0; j < solution->nbDimension; j++)
+			if (weightDimension[j] + instance->object[indiceObjet]->weight[j] > instance->limit[j])
 			{
-				solution->weightDimension[j] += instance->object[solution->objectTab[i]]->weight[j];
+				boolValid = 0;
+			}
+		} 
+		
+		//Si non, on l'ajoute bien au sac
+		if (boolValid)
+		{
+			value += instance->object[indiceObjet]->value;
+			for (int j = 0; j < instance->nbDimension; j++)
+			{
+				weightDimension[j] += instance->object[indiceObjet]->weight[j];
 			}
 		}
-		
-		valid = 1;
+		boolValid = 1;
+	}
+	
+	solution->value = value;
+	for (int i = 0; i < instance->nbDimension; i++)
+	{
+		solution->weightDimension[i] = weightDimension[i];
 	}
 }
 
@@ -149,6 +174,7 @@ int Solution_init(Solution * solution, int nbObject, int nbDimension)
 {
 	solution->nbObject = nbObject;
 	
+	//Initialisation a 0 de tout les objets du sac
 	solution->objectTab = (int *) calloc(solution->nbObject, sizeof(int));
 	if (solution->objectTab == NULL)
 	{
@@ -158,17 +184,11 @@ int Solution_init(Solution * solution, int nbObject, int nbDimension)
 	solution->value = 0;
 	
 	solution->nbDimension = nbDimension;
-	solution->weightDimension = (int*) malloc (sizeof(int) * solution->nbDimension);
+	//Initialisation a 0 du poids dans toute les dimensions
+	solution->weightDimension = (int*) calloc (solution->nbDimension, sizeof(int) );
 	if (solution->weightDimension == NULL)
 	{
 		return 1;
-	}
-	else
-	{
-		for (int i = 0; i < solution->nbDimension; i++)
-		{
-			solution->weightDimension[i] = 0;
-		}
 	}
 	
 	return 0;

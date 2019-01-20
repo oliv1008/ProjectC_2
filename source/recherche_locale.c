@@ -81,10 +81,6 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 			// on parcourt les objets à la suite de l'objet à échanger pour effectuer les échanges
 			if (solution->objectTab[indiceObjetAEchanger] != solution->objectTab[indiceObjetParcouru])
 			{
-<<<<<<< HEAD
-				// tant que l'on a pas échangé deux objets
-				for (j = itmp; j < solutiontmp->nbObject && boolE == 0; j++)
-=======
 				// si on trouve un objet dans le sac à échanger avec un objet hors du sac
 				// on créé une copie de la solution pour pouvoir la modifier temporairement
 				solutiontmp = Solution_new(instance->nbObjectTotal, instance->nbDimension);
@@ -98,7 +94,7 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 				// on ajoute la valeur et les poids de l'objet ajouté au sac
 				// on retire la valeur et les poids de l'objet enlevé du sac
 				if (solutiontmp->objectTab[indiceObjetAEchanger] == 1)
->>>>>>> 6e5a54bdad3a2670f535bdfa07e72ddb0a1f505d
+					
 				{
 					solutiontmp->value += instance->object[indiceObjetAEchanger]->value;
 					solutiontmp->value -= instance->object[indiceObjetParcouru]->value;
@@ -110,32 +106,7 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 						
 					}
 				}
-<<<<<<< HEAD
-			}
-				
-			// on vérifie si cette solution est réalisable
-			if (Is_Solution_Feasible(solutiontmp, instance) == 1)
-			{
-				copySolution(solutiontmp, solVoisine->solutions[indiceSolVoisine]);
-				indiceSolVoisine++;
-			}
-			boolE = 0;
-			free(solutiontmp);
-		}
-		else
-		{
-			// si un objet est dans le sac
-			// on copie la solution courante pour l'utiliser et la modifier temporairement
-			solutiontmp = Solution_new(solution->nbObject, solution->nbDimension);
-			copySolution(solution, solutiontmp);
-			
-			while (boolE == 0)
-			{
-				// tant que l'on a pas échangé deux objets
-				for (j = itmp; j < solutiontmp->nbObject && boolE == 0; j++)
-=======
 				else
->>>>>>> 6e5a54bdad3a2670f535bdfa07e72ddb0a1f505d
 				{
 					solutiontmp->value -= instance->object[indiceObjetAEchanger]->value;
 					solutiontmp->value += instance->object[indiceObjetParcouru]->value;
@@ -162,23 +133,7 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 	return solVoisine;
 }
 
-// POUR LE CODAGE INDIRECT
-// échange entre deux objets de la liste, qui donne une solution voisine. L'ensemble des solutions du voisinage est donné par tous les échanges possibles (N(N-1) / 2) possibilités.
-
-/*
- * Pour chaque objet du sac sauf le dernier
-	Pour i = indiceObjet + 1 jusqu'a nbObjectTotal
-		nouvelleSol = newSol()
-		nouvelleSol = copySol(solution_courante)
-		nouvelleSol = Echange sac[objet] avec sac[i]
-		Si solution réalisable
-			solVoisine[indiceSolVoisine] = nouvelleSol
-			indiceSolVoisine++
-		Sinon
-			free(nouvelleSol)
-<<<<<<< HEAD
-*/
-
+//CODAGE INDIRECT
 SolutionArray * voisinage_indirect(Solution * solution, Instance * instance)
 {
 	// on créé un tableau de solutions qui comporte (N(N-1))/2 solutions (avec N le nombre d'objet)
@@ -200,6 +155,7 @@ SolutionArray * voisinage_indirect(Solution * solution, Instance * instance)
 			solutiontmp->objectTab[indiceObjetParcouru] = priorityTmp;
 			//On ajoute la nouvelle solution à l'array de solutions
 			copySolution(solutiontmp, solVoisine->solutions[solVoisine->currentNbSolution]);
+			Load_Solution_indirect(solVoisine->solutions[solVoisine->currentNbSolution], instance);
 			solVoisine->currentNbSolution++;
 			Solution_delete(solutiontmp);
 		}
@@ -207,6 +163,3 @@ SolutionArray * voisinage_indirect(Solution * solution, Instance * instance)
 	
 	return solVoisine;
 }
-=======
-*/
->>>>>>> 6e5a54bdad3a2670f535bdfa07e72ddb0a1f505d

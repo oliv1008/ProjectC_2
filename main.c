@@ -23,10 +23,12 @@ int main(int argc, char **argv)
 		if (f == NULL)
 		{
 			printf("Chemin d'accès incorrect, veuillez spécifier un chemin d'accès correct\n");
+			exit(EXIT_FAILURE);
 		}
 		else if (atoi(argv[2]) < 0 || atoi(argv[2]) > 1)
 		{
 			printf("Type de codage incorrect, veuillez choisir entre 0 (codage direct) ou 1 (codage indirect)");
+			exit(EXIT_FAILURE);
 		}
 		else
 		{
@@ -70,24 +72,13 @@ int main(int argc, char **argv)
 		
 		SolutionArray_delete(solutions_direct);
 		*/
-<<<<<<< HEAD
-
-		fprintf(solutions_output, "Ordo_decroissant\n");
-		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_decroissant, 1);
+		fprintf(solutions_output, "Ordo_ratio\n");
+		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_ratio, 1);
+		Load_Solution_indirect(sol, datafile->instance[0]);
 		printSolutionToFile(sol, solutions_output);
 		
-		fprintf(solutions_output, "solArray\n");
+		fprintf(solutions_output, "\nSol array\n");
 		SolutionArray * solArray = voisinage_indirect(sol, datafile->instance[0]);
-=======
-		fprintf(solutions_output, "Ordo_aleatoire\n");
-		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_aleatoire, atoi(argv[2]));
-		printSolutionToFile(sol, solutions_output);
-		
-		fprintf(solutions_output, "solArray\n");
-		SolutionArray * solArray = echangeObject_direct(sol, datafile->instance[0]);
-		
-		fprintf(solutions_output,"%i\n",solArray->currentNbSolution);
->>>>>>> 6e5a54bdad3a2670f535bdfa07e72ddb0a1f505d
 		printSolutionArrayToFile(solArray, solutions_output);
 
 		Solution_delete(sol);
