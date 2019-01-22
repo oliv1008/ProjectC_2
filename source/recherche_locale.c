@@ -132,7 +132,7 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 	return solVoisine;
 }
 
-// POUR LE CODAGE INDIRECT
+//CODAGE INDIRECT
 SolutionArray * voisinage_indirect(Solution * solution, Instance * instance)
 {
 	// on créé un tableau de solutions qui comporte (N(N-1))/2 solutions (avec N le nombre d'objet)
@@ -154,6 +154,7 @@ SolutionArray * voisinage_indirect(Solution * solution, Instance * instance)
 			solutiontmp->objectTab[indiceObjetParcouru] = priorityTmp;
 			//On ajoute la nouvelle solution à l'array de solutions
 			copySolution(solutiontmp, solVoisine->solutions[solVoisine->currentNbSolution]);
+			Load_Solution_indirect(solVoisine->solutions[solVoisine->currentNbSolution], instance);
 			solVoisine->currentNbSolution++;
 			Solution_delete(solutiontmp);
 		}
@@ -177,11 +178,14 @@ Solution * algorithme_recherche_locale_direct(Solution * solution, Instance * in
 	copySolution(solCourante, solBest);
 	copySolution(solCourante, solPrec);
 	
+	SolutionArray * solTableau;
 	while (boolC)
 	{
-		for ()
-		{ // pour tous les mouvements possibles à partir d'un opérateur de voisinage
-			copySolution(//solution du tableau de solution de la solution voisine à partir du mouvement et de solution courante, solVoisine);
+		printf("ERREUR\n");
+		solTableau = voisinage_indirect(solution, instance);
+		for (int i = 0; i < solTableau->currentNbSolution; i++)
+		{
+			copySolution(solTableau->solutions[i], solVoisine);
 			if (solVoisine->value > solBestVoisine->value)
 			{
 				copySolution(solVoisine, solBestVoisine);
@@ -195,12 +199,13 @@ Solution * algorithme_recherche_locale_direct(Solution * solution, Instance * in
 		}
 		else
 		{
-			if (solCourante->value < solPrec->value)
+			if (solCourante->value == solPrec->value)
 			{
 				boolC = 0;
 			}
 		}
 		copySolution(solCourante, solPrec);
+		SolutionArray_delete(solTableau);
 	}
 	return solBest;
 }

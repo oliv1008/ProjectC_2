@@ -23,10 +23,12 @@ int main(int argc, char **argv)
 		if (f == NULL)
 		{
 			printf("Chemin d'accès incorrect, veuillez spécifier un chemin d'accès correct\n");
+			exit(EXIT_FAILURE);
 		}
 		else if (atoi(argv[2]) < 0 || atoi(argv[2]) > 1)
 		{
 			printf("Type de codage incorrect, veuillez choisir entre 0 (codage direct) ou 1 (codage indirect)");
+			exit(EXIT_FAILURE);
 		}
 		else
 		{
@@ -70,15 +72,13 @@ int main(int argc, char **argv)
 		
 		SolutionArray_delete(solutions_direct);
 		*/
-
-		fprintf(solutions_output, "Ordo_aleatoire\n");
-		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_critique, atoi(argv[2]));
+		fprintf(solutions_output, "Ordo_ratio\n");
+		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_ratio, 1);
+		Load_Solution_indirect(sol, datafile->instance[0]);
 		printSolutionToFile(sol, solutions_output);
 		
-		fprintf(solutions_output, "solArray\n");
-		SolutionArray * solArray = echangeObject_direct(sol, datafile->instance[0]);
-		
-		fprintf(solutions_output,"%i\n",solArray->currentNbSolution);
+		fprintf(solutions_output, "\nSol array\n");
+		SolutionArray * solArray = voisinage_indirect(sol, datafile->instance[0]);
 		printSolutionArrayToFile(solArray, solutions_output);
 
 		Solution_delete(sol);
@@ -87,37 +87,15 @@ int main(int argc, char **argv)
 	
 	else if (atoi(argv[2]) == 1)
 	{
+		printf("cc\n\n");
 		solutions_output = fopen("solutions_output.txt", "w+");
-		SolutionArray * solutions_indirect = SolutionArray_new(datafile->TotalNbInstance, \
-													datafile->instance[0]->nbObjectTotal, \
-													datafile->instance[0]->nbDimension);
-		for (int i = 0; i < datafile->TotalNbInstance; i++)
-		{
-			Randomize_solution_indirect(solutions_indirect->solutions[i]);
-			Load_Solution_indirect(solutions_indirect->solutions[i], datafile->instance[i]);
-			fprintf(solutions_output, "Solution pour l'instance : %i \n\n", i);
-			for (int j = 0; j < solutions_indirect->solutions[i]->nbObject; j++)
-			{
-				fprintf(solutions_output, "%i ", solutions_indirect->solutions[i]->objectTab[j]);
-			}
-			fprintf(solutions_output, "\nValeur totale : %i\n", solutions_indirect->solutions[i]->value);
-			for (int j = 0; j < solutions_indirect->solutions[i]->nbDimension; j++)
-			{
-				fprintf(solutions_output, "Poids total pour la dimension %i : %i\n", j, \
-											solutions_indirect->solutions[i]->weightDimension[j]);
-			}
-			if (Is_Solution_Feasible(solutions_indirect->solutions[i], datafile->instance[i]))
-			{
-				fprintf(solutions_output, "La solution est réalisable \n");
-			}
-			else
-			{
-				fprintf(solutions_output, "La solution n'est pas réalisable \n");
-			}
-			fprintf(solutions_output, "\n\n\n");
-		}
 		
-		SolutionArray_delete(solutions_indirect);
+		Solution * solin = Algorithme_solutions(datafile->instance[0], Ordonnancement_leger, 1);
+		printf("yo\n");
+		Solution * newsol = algorithme_recherche_locale_direct(solin, datafile->instance[0]);
+		printSolutionToFile(newsol, solutions_output);
+		
+		
 	}
 	
 	DataFile_delete(datafile);

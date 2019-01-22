@@ -11,7 +11,6 @@ typedef struct __Object
 
 typedef struct __Instance
 {
-	int nbObjectCurrent;
 	int nbObjectTotal;
 	int nbDimension;
 	Object ** object;
