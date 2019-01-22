@@ -70,8 +70,9 @@ int main(int argc, char **argv)
 		
 		SolutionArray_delete(solutions_direct);
 		*/
+
 		fprintf(solutions_output, "Ordo_aleatoire\n");
-		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_aleatoire, atoi(argv[2]));
+		Solution * sol = Algorithme_solutions (datafile->instance[0], Ordonnancement_critique, atoi(argv[2]));
 		printSolutionToFile(sol, solutions_output);
 		
 		fprintf(solutions_output, "solArray\n");
@@ -79,7 +80,7 @@ int main(int argc, char **argv)
 		
 		fprintf(solutions_output,"%i\n",solArray->currentNbSolution);
 		printSolutionArrayToFile(solArray, solutions_output);
-		
+
 		Solution_delete(sol);
 		SolutionArray_delete(solArray);
 	}
