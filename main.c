@@ -88,36 +88,7 @@ int main(int argc, char **argv)
 	else if (atoi(argv[2]) == 1)
 	{
 		solutions_output = fopen("solutions_output.txt", "w+");
-		SolutionArray * solutions_indirect = SolutionArray_new(datafile->TotalNbInstance, \
-													datafile->instance[0]->nbObjectTotal, \
-													datafile->instance[0]->nbDimension);
-		for (int i = 0; i < datafile->TotalNbInstance; i++)
-		{
-			Randomize_solution_indirect(solutions_indirect->solutions[i]);
-			Load_Solution_indirect(solutions_indirect->solutions[i], datafile->instance[i]);
-			fprintf(solutions_output, "Solution pour l'instance : %i \n\n", i);
-			for (int j = 0; j < solutions_indirect->solutions[i]->nbObject; j++)
-			{
-				fprintf(solutions_output, "%i ", solutions_indirect->solutions[i]->objectTab[j]);
-			}
-			fprintf(solutions_output, "\nValeur totale : %i\n", solutions_indirect->solutions[i]->value);
-			for (int j = 0; j < solutions_indirect->solutions[i]->nbDimension; j++)
-			{
-				fprintf(solutions_output, "Poids total pour la dimension %i : %i\n", j, \
-											solutions_indirect->solutions[i]->weightDimension[j]);
-			}
-			if (Is_Solution_Feasible(solutions_indirect->solutions[i], datafile->instance[i]))
-			{
-				fprintf(solutions_output, "La solution est réalisable \n");
-			}
-			else
-			{
-				fprintf(solutions_output, "La solution n'est pas réalisable \n");
-			}
-			fprintf(solutions_output, "\n\n\n");
-		}
-		
-		SolutionArray_delete(solutions_indirect);
+		printf("ici\n");
 	}
 	
 	DataFile_delete(datafile);
