@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/source_recherche_locale.c$(ObjectSuffix) $(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/parser.c$(ObjectSuffix) $(IntermediateDirectory)/source_codage.c$(ObjectSuffix) $(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/source_recherche_locale.c$(ObjectSuffix) $(IntermediateDirectory)/parser.c$(ObjectSuffix) $(IntermediateDirectory)/source_codage.c$(ObjectSuffix) $(IntermediateDirectory)/source_heuristique.c$(ObjectSuffix) $(IntermediateDirectory)/main.c$(ObjectSuffix) 
 
 
 
@@ -99,14 +99,6 @@ $(IntermediateDirectory)/source_recherche_locale.c$(DependSuffix): source/recher
 $(IntermediateDirectory)/source_recherche_locale.c$(PreprocessSuffix): source/recherche_locale.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/source_recherche_locale.c$(PreprocessSuffix) source/recherche_locale.c
 
-$(IntermediateDirectory)/main.c$(ObjectSuffix): main.c $(IntermediateDirectory)/main.c$(DependSuffix)
-	$(CC) $(SourceSwitch) "/home/olivier/Bureau/Polytech/ProjetC_2/SacADos/main.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/main.c$(DependSuffix): main.c
-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.c$(ObjectSuffix) -MF$(IntermediateDirectory)/main.c$(DependSuffix) -MM main.c
-
-$(IntermediateDirectory)/main.c$(PreprocessSuffix): main.c
-	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.c$(PreprocessSuffix) main.c
-
 $(IntermediateDirectory)/parser.c$(ObjectSuffix): parser.c $(IntermediateDirectory)/parser.c$(DependSuffix)
 	$(CC) $(SourceSwitch) "/home/olivier/Bureau/Polytech/ProjetC_2/SacADos/parser.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/parser.c$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/parser.c$(DependSuffix): parser.c
@@ -130,6 +122,14 @@ $(IntermediateDirectory)/source_heuristique.c$(DependSuffix): source/heuristique
 
 $(IntermediateDirectory)/source_heuristique.c$(PreprocessSuffix): source/heuristique.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/source_heuristique.c$(PreprocessSuffix) source/heuristique.c
+
+$(IntermediateDirectory)/main.c$(ObjectSuffix): main.c $(IntermediateDirectory)/main.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "/home/olivier/Bureau/Polytech/ProjetC_2/SacADos/main.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/main.c$(DependSuffix): main.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.c$(ObjectSuffix) -MF$(IntermediateDirectory)/main.c$(DependSuffix) -MM main.c
+
+$(IntermediateDirectory)/main.c$(PreprocessSuffix): main.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.c$(PreprocessSuffix) main.c
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

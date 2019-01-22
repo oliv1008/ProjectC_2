@@ -4,7 +4,6 @@
 #include "include/parser.h"
 
 //FONCTION PARSER
-//A FAIRE : instance->nbObjectCurrent ne sert actuellement à rien, à corriger
  
 DataFile * Parser(FILE* file_to_parse)
 {
@@ -16,7 +15,6 @@ DataFile * Parser(FILE* file_to_parse)
 	//Initialisation de la datafile (nb d'instance totales)
 	int TotalNbInstance;
 	fscanf(file_to_parse, "%i", &TotalNbInstance);
-	printf("TotalNbInstance = %i\n", TotalNbInstance);
 	DataFile * datafile = DataFile_new(TotalNbInstance);
 	
 	//On itère sur chaque instance tout au long du fichier

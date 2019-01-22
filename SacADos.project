@@ -12,10 +12,10 @@
   <Dependencies Name="Release"/>
   <VirtualDirectory Name="source">
     <File Name="source/recherche_locale.c"/>
-    <File Name="main.c"/>
     <File Name="parser.c"/>
     <File Name="source/codage.c"/>
     <File Name="source/heuristique.c"/>
+    <File Name="main.c"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
@@ -33,7 +33,7 @@
       </Compiler>
       <Linker Options="" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="./$(ProjectName)" CommandArguments="../MKP-Instances/_mknapcb1_res.txt 0" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="./$(ProjectName)" CommandArguments="../MKP-Instances/_mknapcb1_res.txt" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
       <BuildSystem Name="Default"/>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>

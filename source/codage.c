@@ -154,6 +154,18 @@ void printSolutionToFile(Solution * solution, FILE * f)
 	fprintf(f, "\nScore solution : %i\n\n", solution->value);
 }
 
+void printSolutionToConsole(Solution * solution)
+{
+	for (int i = 0; i < solution->nbObject; i++)
+	{
+		{
+			printf("%i:%i ", i, solution->objectTab[i]);
+		}
+	}
+	
+	printf("\nScore solution : %i\n\n", solution->value);
+}
+
 void printSolutionArrayToFile(SolutionArray * solArray, FILE * f)
 {
 	if (f == NULL)
@@ -166,6 +178,27 @@ void printSolutionArrayToFile(SolutionArray * solArray, FILE * f)
 		fprintf(f, "Solution %i\n", i);
 		printSolutionToFile(solArray->solutions[i], f);
 	}
+}
+
+SolutionArray * fuseSolutionArrays(SolutionArray * solArray1, SolutionArray * solArray2, Instance * instance)
+{
+	SolutionArray * newSolArray = SolutionArray_new(solArray1->totalNbSolutions + solArray2->totalNbSolutions,
+													instance->nbObjectTotal,
+													instance->nbDimension);
+													
+	for (int indiceArray1 = 0; indiceArray1 < solArray1->currentNbSolution; indiceArray1++)
+	{
+		copySolution(solArray1->solutions[indiceArray1], newSolArray->solutions[indiceArray1]);
+	}
+	
+	for (int indiceArray2 = 0; indiceArray2 < solArray2->currentNbSolution; indiceArray2++)
+	{
+		copySolution(solArray2->solutions[indiceArray2], newSolArray->solutions[indiceArray2 + solArray1->currentNbSolution]);
+	}
+	
+	newSolArray->currentNbSolution = solArray1->currentNbSolution + solArray2->currentNbSolution;
+	
+	return newSolArray;
 }
 
 //FONCTIONS D'INITIALISATION DE SOLUTION

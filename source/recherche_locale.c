@@ -14,12 +14,13 @@ SolutionArray * ajoutObject_direct(Solution * solution, Instance * instance)
 	
 	// on créé un tableau de solutions
 	SolutionArray * solVoisine = SolutionArray_new(solution->nbObject, solution->nbObject, solution->nbDimension);
+	Solution * solutiontmp;
 	
-	while (i != solution->nbObject)
+	while (i < solution->nbObject)
 	{
 		// on parcourt tous les objets de la solution courante
 		// on copie la solution courante pour l'utiliser et la modifier temporairement
-		Solution * solutiontmp = Solution_new(solution->nbObject, solution->nbDimension);
+		solutiontmp = Solution_new(solution->nbObject, solution->nbDimension);
 		copySolution(solution, solutiontmp);
 		while (boolC == 0 && i != solution->nbObject)
 		{
@@ -49,17 +50,16 @@ SolutionArray * ajoutObject_direct(Solution * solution, Instance * instance)
 			solVoisine->currentNbSolution++;
 			boolC = 0;
 			i++;
-			free(solutiontmp);
+			Solution_delete(solutiontmp);
 		}
 		else
 		{
-			free(solutiontmp);
+			Solution_delete(solutiontmp);
 			boolC = 0;
 			i++;
 		}	
 	}
 	
-	printf("solVoisine->currentNbSolution : %i\n", solVoisine->currentNbSolution);
 	return solVoisine;
 }
 
@@ -94,7 +94,6 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 				// on ajoute la valeur et les poids de l'objet ajouté au sac
 				// on retire la valeur et les poids de l'objet enlevé du sac
 				if (solutiontmp->objectTab[indiceObjetAEchanger] == 1)
-					
 				{
 					solutiontmp->value += instance->object[indiceObjetAEchanger]->value;
 					solutiontmp->value -= instance->object[indiceObjetParcouru]->value;
@@ -162,4 +161,109 @@ SolutionArray * voisinage_indirect(Solution * solution, Instance * instance)
 	}
 	
 	return solVoisine;
+}
+
+SolutionArray * voisinage_direct(Solution * solution, Instance * instance)
+{
+	SolutionArray * solArrayAjout = ajoutObject_direct(solution, instance);
+	SolutionArray * solArrayEchange = echangeObject_direct(solution, instance);
+	
+	SolutionArray * solArray = fuseSolutionArrays(solArrayAjout, solArrayEchange, instance);
+	
+	SolutionArray_delete(solArrayAjout);
+	SolutionArray_delete(solArrayEchange);
+	
+	return solArray;
+}
+
+// ALGORITHME RECHERCHE LOCALE INDIRECT
+Solution * algorithme_recherche_locale_indirect(Solution * solution, Instance * instance)
+{
+	int boolC = 1;
+	
+	Solution * solCourante = Solution_new(instance->nbObjectTotal, instance->nbDimension);
+	Solution * solBest = Solution_new(instance->nbObjectTotal, instance->nbDimension);
+	Solution * solPrec = Solution_new(instance->nbObjectTotal, instance->nbDimension);
+	Solution * solBestVoisine = Solution_new(instance->nbObjectTotal, instance->nbDimension);
+	Solution * solVoisine = Solution_new(instance->nbObjectTotal, instance->nbDimension);
+	
+	copySolution(solution, solCourante);
+	copySolution(solCourante, solBest);
+	copySolution(solCourante, solPrec);
+	
+	SolutionArray * solTableau;
+	while (boolC)
+	{
+		solTableau = voisinage_indirect(solCourante, instance);
+		for (int i = 0; i < solTableau->currentNbSolution; i++)
+		{
+			copySolution(solTableau->solutions[i], solVoisine);
+			if (solVoisine->value > solBestVoisine->value)
+			{
+				copySolution(solVoisine, solBestVoisine);
+			}
+		}
+		copySolution(solBestVoisine, solCourante);
+		
+		if (solCourante->value > solBest->value)
+		{
+			copySolution(solCourante, solBest);
+		}
+		else
+		{
+			if (solCourante->value == solPrec->value)
+			{
+				boolC = 0;
+			}
+		}
+		copySolution(solCourante, solPrec);
+		SolutionArray_delete(solTableau);
+	}
+	return solBest;
+}
+
+// ALGORITHME RECHERCHE LOCALE DIRECT
+Solution * algorithme_recherche_locale_direct(Solution * solution, Instance * instance)
+{
+	int boolC = 1;
+	
+	Solution * solCourante = Solution_new(instance->nbObjectTotal, instance->nbDimension);
+	Solution * solBest = Solution_new(instance->nbObjectTotal, instance->nbDimension);
+	Solution * solPrec = Solution_new(instance->nbObjectTotal, instance->nbDimension);
+	Solution * solBestVoisine = Solution_new(instance->nbObjectTotal, instance->nbDimension);
+	Solution * solVoisine = Solution_new(instance->nbObjectTotal, instance->nbDimension);
+	
+	copySolution(solution, solCourante);
+	copySolution(solCourante, solBest);
+	copySolution(solCourante, solPrec);
+	
+	SolutionArray * solTableau;
+	while (boolC)
+	{
+		solTableau = voisinage_direct(solCourante, instance);
+		for (int i = 0; i < solTableau->currentNbSolution; i++)
+		{
+			copySolution(solTableau->solutions[i], solVoisine);
+			if (solVoisine->value > solBestVoisine->value)
+			{
+				copySolution(solVoisine, solBestVoisine);
+			}
+		}
+		copySolution(solBestVoisine, solCourante);
+		
+		if (solCourante->value > solBest->value)
+		{
+			copySolution(solCourante, solBest);
+		}
+		else
+		{
+			if (solCourante->value == solPrec->value)
+			{
+				boolC = 0;
+			}
+		}
+		copySolution(solCourante, solPrec);
+		SolutionArray_delete(solTableau);
+	}
+	return solBest;
 }
