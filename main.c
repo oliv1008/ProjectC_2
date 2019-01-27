@@ -35,13 +35,15 @@ int main(int argc, char **argv)
 	
 	do
 	{
+		// choix du codage par l'utilisateur
 		printf("Quel codage ? (0 = direct, 1 = direct) ");
 		scanf("%i", &codage);
-	}while (codage != 0 && codage != 1);
+	}while (codage < 0 || codage > 1);
 	printf("\n");
 	
 	do
 	{
+		// choix de l'ordonnancement par l'utilisateur
 		printf("Quel ordonnancement ?\n");
 		printf("1 : decroissant\n");
 		printf("2 : ratio\n");
@@ -49,7 +51,7 @@ int main(int argc, char **argv)
 		printf("4 : dynamique\n");
 		printf("5 : leger\n");
 		scanf("%i", &ordonnancement);
-	}while(ordonnancement < 1 && ordonnancement > 5);
+	}while(ordonnancement < 1 || ordonnancement > 5);
 	printf("\n\n\n");
 	
 	//Codage direct
@@ -131,5 +133,6 @@ int main(int argc, char **argv)
 	}
 	
 	DataFile_delete(datafile);
+	fclose(f);
 	return 0;
 }

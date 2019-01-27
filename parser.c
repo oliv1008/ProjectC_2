@@ -88,7 +88,6 @@ DataFile * Parser(FILE* file_to_parse)
 
 int Object_init(Object* object, int nbDimension)
 {
-	//Dimension + 1 car une colone pour la valeur et nbDimension pour le nombre de dimension
 	object->weight = (int*) malloc(sizeof(int) * nbDimension);
 	if (object->weight)
 	{

@@ -19,15 +19,11 @@ typedef struct __SolutionArray
 	Solution ** solutions;
 } SolutionArray;
 
-void Randomize_solution_direct(Solution * solution);
-void Randomize_solution_indirect(Solution * solution);
 void Load_Solution_direct(Solution * solution, Instance * instance);
 void Load_Solution_indirect(Solution * solution, Instance * instance);
 int Is_Solution_Feasible(Solution* solution, Instance * instance);
 void copySolution(Solution * solutionFrom, Solution * solutionTo);
-void printSolutionToFile(Solution * solution, FILE * f);
 void printSolutionToConsole(Solution * solution);
-void printSolutionArrayToFile(SolutionArray * solArray, FILE * f);
 SolutionArray * fuseSolutionArrays(SolutionArray * solArray1, SolutionArray * solArray2, Instance * instance);
 
 //FONCTIONS D'INITIALISATION DE SOLUTION
@@ -40,8 +36,8 @@ void Solution_delete(Solution * solution);
 //FONCTIONS D'INITIALISATION DE SOLUTION_ARRAY
 
 SolutionArray * SolutionArray_new(int totalNbSolutions, int nbObject, int nbDimension);
-int SolutionArray_init(SolutionArray * solutions, int totalNbSolutions, int nbObject, int nbDimension);
-void SolutionArray_finalize(SolutionArray * solutions);
-void SolutionArray_delete(SolutionArray * solutions);
+int SolutionArray_init(SolutionArray * solutionArray, int totalNbSolutions, int nbObject, int nbDimension);
+void SolutionArray_finalize(SolutionArray * solutionArray);
+void SolutionArray_delete(SolutionArray * solutionArray);
 
 #endif

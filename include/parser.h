@@ -24,6 +24,7 @@ typedef struct __DataFile
 	int TotalNbInstance;
 }DataFile;
 
+// FONCTION PARSER
 DataFile * Parser(FILE* file_to_parse);
 
 //FONCTIONS OBJECT

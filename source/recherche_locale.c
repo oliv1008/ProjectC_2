@@ -16,15 +16,15 @@ SolutionArray * ajoutObject_direct(Solution * solution, Instance * instance)
 	SolutionArray * solVoisine = SolutionArray_new(solution->nbObject, solution->nbObject, solution->nbDimension);
 	Solution * solutiontmp;
 	
+	// on parcourt tous les objets de la solution courante
 	while (i < solution->nbObject)
 	{
-		// on parcourt tous les objets de la solution courante
 		// on copie la solution courante pour l'utiliser et la modifier temporairement
 		solutiontmp = Solution_new(solution->nbObject, solution->nbDimension);
 		copySolution(solution, solutiontmp);
+		// on parcourt la liste d'objets tant que l'on a pas trouvé un objet qui n'est pas dans le sac
 		while (boolC == 0 && i != solution->nbObject)
 		{
-			// on parcourt la liste d'objets tant que l'on a pas trouvé un objet qui n'est pas dans le sac
 			if (solutiontmp->objectTab[i] == 1)
 			{
 				i++;
@@ -44,6 +44,7 @@ SolutionArray * ajoutObject_direct(Solution * solution, Instance * instance)
 		}
 		
 		// on vérifie si cette solution est réalisable
+		// si oui on la rajoute au tableau de solutions de voisinage
 		if (Is_Solution_Feasible(solutiontmp, instance) == 1)
 		{
 			copySolution(solutiontmp, solVoisine->solutions[solVoisine->currentNbSolution]);
@@ -73,15 +74,15 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 	SolutionArray * solVoisine = SolutionArray_new(nbMaxSolutions, solution->nbObject, solution->nbDimension);
 	Solution * solutiontmp;
 	
+	// on parcourt tous les objets de l'instance
 	for (int indiceObjetAEchanger = 0; indiceObjetAEchanger < solution->nbObject-1; indiceObjetAEchanger++)
 	{
-		// on parcourt tous les objets de l'instance
+		// on parcourt les objets à la suite de l'objet à échanger pour effectuer les échanges
 		for (int indiceObjetParcouru = indiceObjetAEchanger+1; indiceObjetParcouru < solution->nbObject; indiceObjetParcouru++)
 		{
-			// on parcourt les objets à la suite de l'objet à échanger pour effectuer les échanges
+			// si on trouve un objet dans le sac à échanger avec un objet hors du sac
 			if (solution->objectTab[indiceObjetAEchanger] != solution->objectTab[indiceObjetParcouru])
 			{
-				// si on trouve un objet dans le sac à échanger avec un objet hors du sac
 				// on créé une copie de la solution pour pouvoir la modifier temporairement
 				solutiontmp = Solution_new(instance->nbObjectTotal, instance->nbDimension);
 				copySolution(solution, solutiontmp);
@@ -132,6 +133,19 @@ SolutionArray * echangeObject_direct(Solution * solution, Instance * instance)
 	return solVoisine;
 }
 
+SolutionArray * voisinage_direct(Solution * solution, Instance * instance)
+{
+	SolutionArray * solArrayAjout = ajoutObject_direct(solution, instance);
+	SolutionArray * solArrayEchange = echangeObject_direct(solution, instance);
+	
+	SolutionArray * solArray = fuseSolutionArrays(solArrayAjout, solArrayEchange, instance);
+	
+	SolutionArray_delete(solArrayAjout);
+	SolutionArray_delete(solArrayEchange);
+	
+	return solArray;
+}
+
 //CODAGE INDIRECT
 SolutionArray * voisinage_indirect(Solution * solution, Instance * instance)
 {
@@ -163,19 +177,6 @@ SolutionArray * voisinage_indirect(Solution * solution, Instance * instance)
 	return solVoisine;
 }
 
-SolutionArray * voisinage_direct(Solution * solution, Instance * instance)
-{
-	SolutionArray * solArrayAjout = ajoutObject_direct(solution, instance);
-	SolutionArray * solArrayEchange = echangeObject_direct(solution, instance);
-	
-	SolutionArray * solArray = fuseSolutionArrays(solArrayAjout, solArrayEchange, instance);
-	
-	SolutionArray_delete(solArrayAjout);
-	SolutionArray_delete(solArrayEchange);
-	
-	return solArray;
-}
-
 // ALGORITHME RECHERCHE LOCALE INDIRECT
 Solution * algorithme_recherche_locale_indirect(Solution * solution, Instance * instance)
 {
@@ -194,10 +195,12 @@ Solution * algorithme_recherche_locale_indirect(Solution * solution, Instance * 
 	SolutionArray * solTableau;
 	while (boolC)
 	{
+		// on récupère le tableau de solutions de voisinage
 		solTableau = voisinage_indirect(solCourante, instance);
 		for (int i = 0; i < solTableau->currentNbSolution; i++)
 		{
 			copySolution(solTableau->solutions[i], solVoisine);
+			// on vérifie si la solution est meilleure que la meilleure des solutions voisines
 			if (solVoisine->value > solBestVoisine->value)
 			{
 				copySolution(solVoisine, solBestVoisine);
@@ -205,6 +208,7 @@ Solution * algorithme_recherche_locale_indirect(Solution * solution, Instance * 
 		}
 		copySolution(solBestVoisine, solCourante);
 		
+		// on vérifie si la solution est meilleure que la meilleure des solutions
 		if (solCourante->value > solBest->value)
 		{
 			copySolution(solCourante, solBest);
@@ -219,6 +223,10 @@ Solution * algorithme_recherche_locale_indirect(Solution * solution, Instance * 
 		copySolution(solCourante, solPrec);
 		SolutionArray_delete(solTableau);
 	}
+	Solution_delete(solCourante);
+	Solution_delete(solPrec);
+	Solution_delete(solBestVoisine);
+	Solution_delete(solVoisine);
 	return solBest;
 }
 
@@ -240,10 +248,12 @@ Solution * algorithme_recherche_locale_direct(Solution * solution, Instance * in
 	SolutionArray * solTableau;
 	while (boolC)
 	{
+		// on récupère le tableau de solutions de voisinage
 		solTableau = voisinage_direct(solCourante, instance);
 		for (int i = 0; i < solTableau->currentNbSolution; i++)
 		{
 			copySolution(solTableau->solutions[i], solVoisine);
+			// on vérifie si la solution est meilleure que la meilleure des solutions voisines
 			if (solVoisine->value > solBestVoisine->value)
 			{
 				copySolution(solVoisine, solBestVoisine);
@@ -251,6 +261,7 @@ Solution * algorithme_recherche_locale_direct(Solution * solution, Instance * in
 		}
 		copySolution(solBestVoisine, solCourante);
 		
+		// on vérifie si la solution est meilleure que la meilleure des solutions
 		if (solCourante->value > solBest->value)
 		{
 			copySolution(solCourante, solBest);
@@ -265,5 +276,9 @@ Solution * algorithme_recherche_locale_direct(Solution * solution, Instance * in
 		copySolution(solCourante, solPrec);
 		SolutionArray_delete(solTableau);
 	}
+	Solution_delete(solCourante);
+	Solution_delete(solPrec);
+	Solution_delete(solBestVoisine);
+	Solution_delete(solVoisine);
 	return solBest;
 }

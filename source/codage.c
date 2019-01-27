@@ -3,45 +3,9 @@
 #include "include/parser.h"
 
 //FONCTIONS SOLUTIONS
-
-void Randomize_solution_direct(Solution * solution)
-{	
-	for (int i = 0; i < solution->nbObject; i++)
-	{
-		solution->objectTab[i] = rand() % 2;
-	}
-}
-
-void Randomize_solution_indirect(Solution * solution)
-{
-	int * tableau = (int *) malloc (sizeof(int) * solution->nbObject);
-	
-	for (int i = 0; i < solution->nbObject; i++)
-	{
-		tableau[i] = i;
-	}
-	
-	int alea;
-	int taille = solution->nbObject;
-	
-	for (int i = 0; i < solution->nbObject; i++)
-	{
-		alea = rand() % taille;
-		solution->objectTab[i] = tableau[alea];
-		--taille;
-		
-		for(int j = alea; j < taille; j++)
-		{
-			tableau[j] = tableau[j + 1];
-		}
-	}
-	
-	free(tableau);
-}
-
-//Remplit les valeurs "value" et "weightDimension" en fonction de la valeur
-//et du poids des dimensions des objets dans le sac
 //POUR CODAGE DIRECT
+
+// Initialise "value" et "weightDimension" en fonction de la valeur et du poids des dimensions des objets dans le sac
 void Load_Solution_direct(Solution * solution, Instance * instance)
 {
 	for (int i = 0; i < solution->nbObject; i++)
@@ -57,13 +21,13 @@ void Load_Solution_direct(Solution * solution, Instance * instance)
 	}
 }
 
-//Remplit les valeurs "value" et "weightDimension" en fonction de la valeur
-//et du poids des dimensions des objets dans le sac
 //POUR CODAGE INDIRECT
+
+// Initialise "value" et "weightDimension" en fonction de la valeur et du poids des dimensions des objets dans le sac
 void Load_Solution_indirect(Solution * solution, Instance * instance)
 {
 	int value = 0;
-	int * weightDimension = (int*) calloc(instance->nbDimension, sizeof(int));
+	int * weightDimension = (int*)calloc(instance->nbDimension, sizeof(int));
 	int indiceObjet = 0;
 	int priority = 1;
 	int boolFindIndice = 1;
@@ -110,6 +74,7 @@ void Load_Solution_indirect(Solution * solution, Instance * instance)
 	{
 		solution->weightDimension[i] = weightDimension[i];
 	}
+	free(weightDimension);
 }
 
 int Is_Solution_Feasible(Solution * solution, Instance * instance)
@@ -125,6 +90,7 @@ int Is_Solution_Feasible(Solution * solution, Instance * instance)
 	return 1;
 }
 
+// FONCTIONS DE MANIPULATION DES SOLUTIONS
 void copySolution(Solution * solutionFrom, Solution * solutionTo)
 {
 	for (int i = 0; i < solutionFrom->nbObject; i++)
@@ -142,18 +108,6 @@ void copySolution(Solution * solutionFrom, Solution * solutionTo)
 	}
 }
 
-void printSolutionToFile(Solution * solution, FILE * f)
-{
-	for (int i = 0; i < solution->nbObject; i++)
-	{
-		{
-			fprintf(f, "%i:%i ", i, solution->objectTab[i]);
-		}
-	}
-	
-	fprintf(f, "\nScore solution : %i\n\n", solution->value);
-}
-
 void printSolutionToConsole(Solution * solution)
 {
 	for (int i = 0; i < solution->nbObject; i++)
@@ -164,20 +118,6 @@ void printSolutionToConsole(Solution * solution)
 	}
 	
 	printf("\nScore solution : %i\n\n", solution->value);
-}
-
-void printSolutionArrayToFile(SolutionArray * solArray, FILE * f)
-{
-	if (f == NULL)
-	{
-		f = fopen("output.txt", "w");
-	}
-	
-	for (int i = 0; i < solArray->currentNbSolution; i++)
-	{
-		fprintf(f, "Solution %i\n", i);
-		printSolutionToFile(solArray->solutions[i], f);
-	}
 }
 
 SolutionArray * fuseSolutionArrays(SolutionArray * solArray1, SolutionArray * solArray2, Instance * instance)
@@ -206,19 +146,18 @@ SolutionArray * fuseSolutionArrays(SolutionArray * solArray1, SolutionArray * so
 int Solution_init(Solution * solution, int nbObject, int nbDimension)
 {
 	solution->nbObject = nbObject;
+	solution->value = 0;
+	solution->nbDimension = nbDimension;
 	
 	//Initialisation a 0 de tout les objets du sac
-	solution->objectTab = (int *) calloc(solution->nbObject, sizeof(int));
+	solution->objectTab = (int*)calloc(solution->nbObject, sizeof(int));
 	if (solution->objectTab == NULL)
 	{
 		return 1;
 	}
 	
-	solution->value = 0;
-	
-	solution->nbDimension = nbDimension;
 	//Initialisation a 0 du poids dans toute les dimensions
-	solution->weightDimension = (int*) calloc (solution->nbDimension, sizeof(int) );
+	solution->weightDimension = (int*)calloc(solution->nbDimension, sizeof(int));
 	if (solution->weightDimension == NULL)
 	{
 		return 1;
@@ -229,7 +168,7 @@ int Solution_init(Solution * solution, int nbObject, int nbDimension)
 
 Solution * Solution_new(int nbObject, int nbDimension)
 {
-	Solution * my_solution = (Solution*) malloc(sizeof(Solution));
+	Solution * my_solution = (Solution *)malloc(sizeof(Solution));
 	if (my_solution)
 	{
 		if (Solution_init(my_solution, nbObject, nbDimension))
@@ -258,9 +197,9 @@ void Solution_delete(Solution * solution)
 
 SolutionArray * SolutionArray_new(int totalNbSolutions, int nbObject, int nbDimension)
 {
-	SolutionArray * my_solution_array = (SolutionArray*) malloc(sizeof(SolutionArray));
+	SolutionArray * my_solution_array = (SolutionArray*)malloc(sizeof(SolutionArray));
 	
-	if (my_solution_array != NULL)
+	if (my_solution_array)
 	{
 		if (SolutionArray_init(my_solution_array, totalNbSolutions, nbObject, nbDimension))
 		{
@@ -272,41 +211,37 @@ SolutionArray * SolutionArray_new(int totalNbSolutions, int nbObject, int nbDime
 	return my_solution_array;
 }
 
-int SolutionArray_init(SolutionArray * solutions, int totalNbSolutions, int nbObject, int nbDimension)
+int SolutionArray_init(SolutionArray * solutionArray, int totalNbSolutions, int nbObject, int nbDimension)
 {
-	solutions->currentNbSolution = 0;
-	solutions->totalNbSolutions = totalNbSolutions;
-	solutions->solutions = (Solution **) malloc(sizeof(Solution*) * solutions->totalNbSolutions);
-	if (solutions->solutions != NULL)
+	solutionArray->currentNbSolution = 0;
+	solutionArray->totalNbSolutions = totalNbSolutions;
+	solutionArray->solutions = (Solution**)malloc(sizeof(Solution*) * solutionArray->totalNbSolutions);
+	if (solutionArray->solutions == NULL)
 	{
-		for (int i = 0; i < solutions->totalNbSolutions; i++)
-		{
-			solutions->solutions[i] = Solution_new(nbObject, nbDimension);
-			if (solutions->solutions[i] == NULL)
-			{
-				return 1;
-			}
-		}
+		return 1;
 	}
 	else
 	{
-		return 1;
+		for (int i = 0; i < totalNbSolutions; i++)
+		{
+			solutionArray->solutions[i] = Solution_new(nbObject, nbDimension);
+		}
 	}
 	
 	return 0;
 }
 
-void SolutionArray_finalize(SolutionArray * solutions)
+void SolutionArray_finalize(SolutionArray * solutionArray)
 {
-	for (int i = 0; i < solutions->currentNbSolution; i++)
+	for (int i = 0; i < solutionArray->totalNbSolutions; i++)
 	{
-		 Solution_delete(solutions->solutions[i]);
+		 Solution_delete(solutionArray->solutions[i]);
 	}
-	free(solutions->solutions);
+	free(solutionArray->solutions);
 }
 
-void SolutionArray_delete(SolutionArray * solutions)
+void SolutionArray_delete(SolutionArray * solutionArray)
 {
-	SolutionArray_finalize(solutions);
-	free(solutions);
+	SolutionArray_finalize(solutionArray);
+	free(solutionArray);
 }

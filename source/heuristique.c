@@ -6,8 +6,8 @@
 
 int * Ordonnancement_aleatoire(Instance * instance)
 {
-	//On créer un tableau de pointeur d'Object
-	// /!\ ATTENTION NE PAS FREE LES OBJECTS (le tableau agrège les objets de l'instance passée en paramètre)
+	//On créé un tableau de pointeurs d'Object
+	// /!\ (le tableau agrège les objets de l'instance passée en paramètre)
 	int * objectTab = (int *) malloc(sizeof(int) * instance->nbObjectTotal);
 	int * tab = (int *) malloc(sizeof(int) * instance->nbObjectTotal);
 	
@@ -35,15 +35,14 @@ int * Ordonnancement_aleatoire(Instance * instance)
 	return objectTab;
 }
 
-//Renvoie l'indice des objets de l'instance passé en parametre, trie selon leur valeur (decroissant)
+//Renvoie l'indice des objets de l'instance passée en parametre, trie selon leur valeur (decroissant)
 int * Ordonnancement_decroissant(Instance * instance)
 {
-	//On créer un tableau de pointeur d'Object
-	// /!\ ATTENTION NE PAS FREE LES OBJECTS (le tableau agrège les objets de l'instance passée en paramètre)
+	//On créé un tableau de pointeur d'Object
 	int * objectTab = (int *) malloc(sizeof(int) * instance->nbObjectTotal);
 	int * tab = (int *) malloc(sizeof(int) * instance->nbObjectTotal);
 	
-	//On créer le tableau d'indice (utilisé pour garder trace des objets que l'on a déjà ajouté)
+	//On créé le tableau d'indices (utilisé pour garder trace des objets que l'on a déjà ajouté)
 	for (int i = 0; i < instance->nbObjectTotal; i++)
 	{
 		tab[i] = i;
@@ -88,23 +87,22 @@ int * Ordonnancement_decroissant(Instance * instance)
 	return objectTab;
 }
 
-//Renvoie l'indice des objets de l'instance passé en parametre, trie selon leur ratio valeur/sommePoids de leurs dimensions
+//Renvoie l'indice des objets de l'instance passée en parametre, trie selon leur ratio valeur/sommePoids de leurs dimensions
 //(decroissant)
 int * Ordonnancement_ratio(Instance * instance)
 {
-	//On créer un tableau de pointeur d'Object
-	// /!\ ATTENTION NE PAS FREE LES OBJECTS (le tableau agrège les objets de l'instance passée en paramètre)
+	//On créé un tableau de pointeur d'Object
 	int * objectTab = (int *) malloc(sizeof(int) * instance->nbObjectTotal);
 	int * tab = (int *) malloc(sizeof(int) * instance->nbObjectTotal);
 	float * tabRatio = (float *) malloc(sizeof(float) * instance->nbObjectTotal);
 	
-	//On créer le tableau d'indice (utilisé pour garder trace des objets que l'on a déjà ajouté)
+	//On créé le tableau d'indice (utilisé pour garder trace des objets que l'on a déjà ajouté)
 	for (int i = 0; i < instance->nbObjectTotal; i++)
 	{
 		tab[i] = i;
 	}
 	
-	//On créer le tableau de ratio valeur/sommePoids
+	//On créé le tableau de ratio valeur/sommePoids
 	for (int i = 0; i < instance->nbObjectTotal; i++)
 	{
 		float sommePoids = 0;
@@ -122,11 +120,11 @@ int * Ordonnancement_ratio(Instance * instance)
 	//A chaque itération on recherche l'objet avec la plus grande valeur
 	for (int i = 0; i < instance->nbObjectTotal; i++)
 	{
-		//On repart du début du tableau des objets restant
+		//On repart du début du tableau des objets restants
 		valMax = tabRatio[tab[0]];
 		indiceValMax = tab[0];
 		indiceAEnlever = 0;
-		//On parcourt uniquement les objets que l'on pas encore ajouté au tableau d'objet
+		//On parcourt uniquement les objets que l'on n'a pas encore ajouté au tableau d'objet
 		for (int j = 0; j < taille; j++)
 		{
 			//Lorsqu'on a trouvé un objet avec une plus grande valeur, on remplace la valMax actuelle
@@ -154,17 +152,16 @@ int * Ordonnancement_ratio(Instance * instance)
 	return objectTab;
 }
 
-//Renvoie l'indice des objets de l'instance passé en parametre, trie selon leur ratio valeur/sommePoids des poids de 
-//la dimension critique (dimension ayant le ratio sommePoids/limite le plus elevee) (decroissant)
+//Renvoie l'indice des objets de l'instance passée en parametre, trie selon leur ration valeur/sommePoids des poids de
+// la dimension critique (dimension ayant le ratio sommePoids/limite le plus élevé) (decroissant)
 int * Ordonnancement_critique(Instance * instance)
 {
-	//On créer un tableau de pointeur d'Object
-	// /!\ ATTENTION NE PAS FREE LES OBJECTS (le tableau agrège les objets de l'instance passée en paramètre)
+	//On créé un tableau de pointeur d'Object
 	int * objectTab = (int *) malloc(sizeof(int) * instance->nbObjectTotal);
 	int * tab = (int *) malloc(sizeof(int) * instance->nbObjectTotal);
 	float * tabRatio = (float *) malloc(sizeof(float) * instance->nbObjectTotal);
 	
-	//On créer le tableau d'indice (utilisé pour garder trace des objets que l'on a déjà ajouté)
+	//On créé le tableau d'indice (utilisé pour garder trace des objets que l'on a déjà ajouté)
 	for (int i = 0; i < instance->nbObjectTotal; i++)
 	{
 		tab[i] = i;
@@ -190,7 +187,7 @@ int * Ordonnancement_critique(Instance * instance)
 		sommePoids = 0;
 	}
 	
-	//On créer le tableau de ratio valeur/sommePoids en prenant uniquement en compte la dimension critique
+	//On créé le tableau de ratio valeur/sommePoids en prenant uniquement en compte la dimension critique
 	for (int i = 0; i < instance->nbObjectTotal; i++)
 	{
 		tabRatio[i] = ((float) instance->object[i]->value) / ((float) instance->object[i]->weight[indiceDimCritique]);
@@ -203,11 +200,11 @@ int * Ordonnancement_critique(Instance * instance)
 	//A chaque itération on recherche l'objet avec la plus grande valeur
 	for (int i = 0; i < instance->nbObjectTotal; i++)
 	{
-		//On repart du début du tableau des objets restant
+		//On repart du début du tableau des objets restants
 		valMax = tabRatio[tab[0]];
 		indiceValMax = tab[0];
 		indiceAEnlever = 0;
-		//On parcourt uniquement les objets que l'on pas encore ajouté au tableau d'objet
+		//On parcourt uniquement les objets que l'on n'a pas encore ajouté au tableau d'objet
 		for (int j = 0; j < taille; j++)
 		{
 			//Lorsqu'on a trouvé un objet avec une plus grande valeur, on remplace la valMax actuelle
@@ -235,20 +232,19 @@ int * Ordonnancement_critique(Instance * instance)
 	return objectTab;
 }
 
-//Renvoie l'indice des objets de l'instance passé en parametre, trie selon leur ratio valeur/sommePoids des poids de 
-//la dimension critique (dimension ayant le ratio sommePoids/limite le plus elevee) (decroissant)
-//Cette dimension critique est recalcule a chaque ajout dans le sac
+//Renvoie l'indice des objets de l'instance passée en parametre, trie selon leur ratio valeur/sommePoids des poids de 
+//la dimension critique (dimension ayant le ratio sommePoids/limite le plus élevé) (decroissant)
+//Cette dimension critique est recalculée a chaque ajout dans le sac
 int * Ordonnancement_dynamique(Instance * instance)
 {
-	//On créer un tableau de pointeur d'Object
-	// /!\ ATTENTION NE PAS FREE LES OBJECTS (le tableau agrège les objets de l'instance passée en paramètre)
+	//On créé un tableau de pointeur d'Object
 	int * objectTab = (int *) malloc(sizeof(int) * instance->nbObjectTotal);
 	int * tab = (int *) malloc(sizeof(int) * instance->nbObjectTotal);
 	float * tabRatio = (float *) malloc(sizeof(float) * instance->nbObjectTotal);
 	int * tabLimit = (int *) malloc(sizeof(int) * instance->nbDimension);
 	
 	//INITIALISATION DES VARIABLES ET TABLEAUX
-	//On créer le tableau d'indice (utilisé pour garder trace des objets que l'on a déjà ajouté)
+	//On créé le tableau d'indice (utilisé pour garder trace des objets que l'on a déjà ajouté)
 	for (int i = 0; i < instance->nbObjectTotal; i++)
 	{
 		tab[i] = i;
@@ -294,11 +290,11 @@ int * Ordonnancement_dynamique(Instance * instance)
 	int taille = instance->nbObjectTotal;
 	for (int i = 0; i < instance->nbObjectTotal; i++)
 	{
-		//On repart du début du tableau des objets restant
+		//On repart du début du tableau des objets restants
 		valMax = tabRatio[tab[0]];
 		indiceValMax = tab[0];
 		indiceAEnlever = 0;
-		//On parcourt uniquement les objets que l'on pas encore ajouté au tableau d'objet
+		//On parcourt uniquement les objets que l'on n'a pas encore ajouté au tableau d'objet
 		for (int j = 0; j < taille; j++)
 		{
 			//Lorsqu'on a trouvé un objet avec une plus grande valeur, on remplace la valMax actuelle
@@ -346,7 +342,7 @@ int * Ordonnancement_dynamique(Instance * instance)
 			sommePoids = 0;
 		}
 		
-		//On met à jours le tableau de ratio valeur/sommePoids en prenant uniquement en compte la nouvelle dimension critique
+		//On met à jour le tableau de ratio valeur/sommePoids en prenant uniquement en compte la nouvelle dimension critique
 		for (int w = 0; w < instance->nbObjectTotal; w++)
 		{
 			tabRatio[w] = ((float) instance->object[w]->value) / ((float) instance->object[w]->weight[indiceDimCritique]);
@@ -359,15 +355,14 @@ int * Ordonnancement_dynamique(Instance * instance)
 	return objectTab;
 }
 
-//Renvoie l'indice des objets de l'instance passé en parametre, trie selon la somme de leur poids (croissant)
+//Renvoie l'indice des objets de l'instance passée en parametre, trie selon la somme de leur poids (croissant)
 int * Ordonnancement_leger(Instance * instance)
 {
 	//On créé un tableau de pointeur d'Object
-	// /!\ ATTENTION NE PAS FREE LES OBJECTS (le tableau agrège les objets de l'instance passée en paramètre)
 	int * objectTab = (int *)malloc(sizeof(int) * instance->nbObjectTotal);
 	int * tab = (int *) malloc(sizeof(int) * instance->nbObjectTotal);
 	
-	//On créer le tableau d'indice (utilisé pour garder trace des objets que l'on a déjà ajouté)
+	//On créé le tableau d'indice (utilisé pour garder trace des objets que l'on a déjà ajouté)
 	for (int i = 0; i < instance->nbObjectTotal; i++)
 	{
 		tab[i] = i;
@@ -390,7 +385,7 @@ int * Ordonnancement_leger(Instance * instance)
 		indiceMin = tab[0];
 		indiceAEnlever = 0;
 		
-		//On parcourt uniquement les objets que l'on pas encore ajouté au tableau d'objet
+		//On parcourt uniquement les objets que l'on n'a pas encore ajouté au tableau d'objet
 		for (int j = 0; j < taille; j++)
 		{
 			for (int k = 0; k < instance->nbDimension; k++)
@@ -426,11 +421,11 @@ int * Ordonnancement_leger(Instance * instance)
 }
 
 // ALGORITHME HEURISTIQUE
-//Renvoie une solution direct ou indirect, ordonnee selon un algorithme passe en parametre
+//Renvoie une solution direct ou indirect, ordonnee selon un algorithme passé en paramètre
 Solution * Algorithme_solutions (Instance * instance, int * (*ordo_fct)(Instance *), int codage)
 {
 	int element;
-	//On trie les objets de l'instance selon une fonction donnee
+	//On trie les objets de l'instance selon une fonction donnée
 	int * tabObject = ordo_fct(instance);
 	Solution * sol = Solution_new(instance->nbObjectTotal, instance->nbDimension);
 	int priority = 1;
@@ -443,7 +438,7 @@ Solution * Algorithme_solutions (Instance * instance, int * (*ordo_fct)(Instance
 		//Si on est en codage direct
 		if (codage == 0)
 		{
-			//On regarde si on peut ajouter le prochain objet du tableau d'objets trie
+			//On regarde si on peut ajouter le prochain objet du tableau d'objets trié
 			for (int j = 0; (j < instance->nbDimension) && valid; j++)
 			{
 				//cad est ce que son poids dans chaque dimension ne fait pas "deborder" la somme des poids actuelle
